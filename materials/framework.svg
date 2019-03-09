@@ -276,13 +276,13 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1058"
+     inkscape:window-height="1018"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.5478822"
-     inkscape:cx="263.70293"
-     inkscape:cy="23.269704"
-     inkscape:window-x="1912"
+     inkscape:zoom="1.094518"
+     inkscape:cx="253.74716"
+     inkscape:cy="-27.205638"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="g10" /><g
@@ -519,6 +519,7 @@
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS'"
    id="tspan6133">x</tspan>11</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -538,6 +539,7 @@
      id="tspan6131-1">6<tspan
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS';stroke-width:0.75"
    id="tspan6133-9">x</tspan>6</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -559,6 +561,7 @@
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS';stroke-width:0.75"
    id="tspan6133-9-4">x</tspan>3</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -578,6 +581,7 @@
      id="tspan6221">2<tspan
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS'"
    id="tspan6223">x</tspan>2</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -599,6 +603,7 @@
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS';stroke-width:0.75"
    id="tspan6223-3">x</tspan>2</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -619,6 +624,7 @@
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS';stroke-width:0.75"
    id="tspan6223-8">x</tspan>2</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -631,6 +637,7 @@
      y="-8.4100761"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.75"
      id="tspan6131-11">Input</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -645,6 +652,7 @@
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.75"
      id="tspan6131-11-0">Classification</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -657,6 +665,7 @@
      y="-6.0077324"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.75"
      id="tspan6131-11-8">Feature extraction</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -671,6 +680,7 @@
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.75"
      id="tspan6131-11-8-0">Flatten</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -683,6 +693,7 @@
      y="-30.941595"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.75"
      id="tspan6131-11-8-0-9">FC1-layer</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -697,6 +708,7 @@
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.75"
      id="tspan6131-11-8-0-9-8">FC2-layer</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -709,6 +721,7 @@
      y="-67.860466"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.75"
      id="tspan6131-11-8-0-9-8-5">Softmax</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -723,6 +736,7 @@
      y="-81.468628"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">128</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -735,6 +749,7 @@
      x="-0.18161811"
      y="-115.32754"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">128</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -749,44 +764,48 @@
      y="-98.974548"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">11</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
    x="112.82098"
-   y="-63.64006"
+   y="-64.392685"
    id="text5610-4-8"
    transform="scale(1,-1)"><tspan
      sodipodi:role="line"
      id="tspan5608-0-0"
      x="112.82098"
-     y="-63.64006"
+     y="-64.392685"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">32</tspan></text>
+
 
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
    x="205.85655"
-   y="-63.982677"
+   y="-64.392685"
    id="text5610-4-8-6"
    transform="scale(1,-1)"><tspan
      sodipodi:role="line"
      id="tspan5608-0-0-0"
      x="205.85655"
-     y="-63.982677"
+     y="-64.392685"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">64</tspan></text>
+
 
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
-   x="314.00171"
-   y="-49.856697"
+   x="302.37292"
+   y="-64.392685"
    id="text5610-4-8-6-7"
    transform="scale(1,-1)"><tspan
      sodipodi:role="line"
      id="tspan5608-0-0-0-7"
-     x="314.00171"
-     y="-49.856697"
+     x="302.37292"
+     y="-64.392685"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">128</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -801,6 +820,7 @@
      y="-85.995796"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">2048</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -813,6 +833,7 @@
      x="428.80936"
      y="-93.619003"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">2048</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -827,6 +848,7 @@
      y="-99.272194"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">64</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -839,6 +861,7 @@
      x="497.04355"
      y="-98.586952"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">4</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -853,6 +876,7 @@
      y="-90.878075"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">1</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:12px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
@@ -865,6 +889,7 @@
      x="359.90408"
      y="-82.437096"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.99999952px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';stroke-width:0.75">1</tspan></text>
+
 
 <g
    id="g1490"
