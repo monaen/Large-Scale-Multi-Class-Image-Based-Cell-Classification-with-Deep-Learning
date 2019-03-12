@@ -2,7 +2,7 @@
 var margin = {top: 50, right: 50, bottom: 50, left: 100};
 
 // set the width and height using the current width and height of the div
-var width = 560 - margin.left - margin.right;
+var width = 550 - margin.left - margin.right;
 var height = 360 - margin.top - margin.bottom;
 
 var figure = d3.select("#barplot_cell_samples").append("svg")
