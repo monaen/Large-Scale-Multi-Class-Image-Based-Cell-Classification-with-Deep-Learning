@@ -52,7 +52,7 @@
       <h5 style="font-family: Markazi Text, serif; font-size: 30px"> <strong>Framework </strong> </h5>
       <figure class="text-center">
         <img src="materials/framework.svg" alt="framework" style="width: 90%">
-        <figcaption style="font-family: Times New Roman; font-size: 20px; padding-top: 10px">Fig. 1: The framework of our deep CNN classification system for cell images</figcaption>
+        <figcaption style="font-family: Times New Roman; font-size: 20px; padding-top: 10px">Fig. 1: The framework of our deep CNN classification system for cell images.</figcaption>
       </figure>
     </section>
 
@@ -62,10 +62,19 @@
       <h5 style="font-family: Markazi Text, serif; font-size: 30px"> 
         <strong> Data </strong>
       </h5>
-      <figure id="barplot_cell_samples"></figure>
-      <script type="text/javascript" src="js/FigCelltype.js"></script>
-      <figure id="lineplot_loss"></figure>
-      <script type="text/javascript" src="js/FigLoss.js"></script>
+      <div class="row">
+        <div class="col-md-6">
+          <figure id="barplot_cell_samples"></figure>
+        </div>
+        <script type="text/javascript" src="js/FigCelltype.js"></script>
+        <div class="col-md-5">
+          <figure class="text-center" style="padding-left: 30px">
+            <img src="imgs/cell.png" alt="cell samples" style="width: 420px; padding-top: 50px;">
+            <figcaption style="font-family: Times New Roman; font-size: 20px; padding-top: 10px">Fig. 2: Examples of single-cell images.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <!-- <script type="text/javascript" src="js/FigLoss.js"></script> -->
     </section>
 
 
