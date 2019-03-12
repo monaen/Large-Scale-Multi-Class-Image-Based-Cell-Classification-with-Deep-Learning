@@ -280,8 +280,54 @@
             .style("font-size", "12pt");
 
       // draw legend
-      var legend = figure.selectAll(".legend")
-                         .data(colors)
+      figure.append("rect")
+            .attr("class", "legend_background")
+            .attr("x", 0)
+            .attr("y", 10)
+            .attr("width", 110)
+            .attr("height", 50)
+            .attr("fill", "#ffffff")
+            .attr("transform", "translate("+ (width-margin.right-60) +", 0)")
+            .attr("stroke", "#666666")
+            .attr("stroke-width", 1)
+            .attr('opacity', 0.6)
+
+      figure.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", 10)
+            .attr("height", 10)
+            .attr("transform", "translate("+ (width-margin.right-52) +", 18)")
+            .attr("fill", colors[0])
+            .style("border-radius", 6)
+
+       figure.append("text")
+            .attr("x", (width-margin.right-35))
+            .attr("y", 28)
+            .text("Pre-augment")
+            .attr("fill", "#666666")
+            .style("font-family", "Times")
+            .style("font-weight", "bold")
+            .style("font-size", "9pt");
+
+      figure.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", 10)
+            .attr("height", 10)
+            .attr("transform", "translate("+ (width-margin.right-52) +", 42)")
+            .attr("fill", colors[1])
+            .style("border-radius", 6)
+
+      figure.append("text")
+            .attr("x", (width-margin.right-35))
+            .attr("y", 52)
+            .text("After-augment")
+            .attr("fill", "#666666")
+            .style("font-family", "Times")
+            .style("font-weight", "bold")
+            .style("font-size", "9pt");
+
 
 
       //  ====================================== visualization of cells ====================================== //
