@@ -162,6 +162,9 @@
             .attr("height", function(d) {return height - y(d.preaugment)})
             .on('mouseenter', function (s, i) {
               d3.select(this)
+                .attr("opacity", 1)
+                .transition()
+                .duration(300)
                 .attr("opacity", 0.6)
                 .style("stroke", "red")
 
@@ -169,6 +172,8 @@
               const xvalue = x(s.type)
 
               figure.append("line")
+                    // .transition()
+                    // .duration(300)
                     .attr("id", "limit")
                     .attr("x1", 0)
                     .attr("y1", yvalue)
@@ -189,6 +194,9 @@
             })
             .on('mouseleave', function (s, i) {
               d3.select(this)
+                .attr("opacity", 0.6)
+                .transition()
+                .duration(300)
                 .attr("opacity", 1)
                 .style("stroke", colors[0])
 
@@ -210,6 +218,9 @@
             .attr("height", function(d) {return height - y(d.afteraugment)})
             .on('mouseenter', function (s, i) {
               d3.select(this)
+                .attr('opacity', 1)
+                .transition()
+                .duration(300)
                 .attr('opacity', 0.6)
                 .style("stroke", "blue")
 
@@ -237,8 +248,12 @@
             })
             .on('mouseleave', function (s, i) {
               d3.select(this)
+                .attr('opacity', 0.6)
+                .transition()
+                .duration(300)
                 .attr('opacity', 1)
                 .style("stroke", colors[1])
+
 
               d3.selectAll("#limit").remove()
               d3.selectAll(".labeltip").remove()
