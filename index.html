@@ -14,6 +14,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     
 
     <title class="col-12"> Large-scale Multi-class Image-based Cell Classification with Deep Learning </title>
@@ -35,7 +37,7 @@
 		</header>
     <section class="container">
       <abstract>
-        <h5 style="font-family: Markazi Text, serif; font-size: 30px"> <strong>Abstract </strong> </h5>
+        <h5 style="font-family: Markazi Text, serif; font-size: 30px"> <strong> Abstract </strong> </h5>
         <p align="justify" style="font-family: Markazi Text, serif; font-size: 24px; line-height: .9"> Recent advances in ultra-high-throughput optical microscopy have enabled a new generation of cell classification methodologies using image-based cell phenotypes alone. In contrast to the current single-cell analysis techniques that rely solely on slow and costly genetic/epigenetic analyses, these image-based classification methods allow morphological profiling and screening of thousands or even millions of single cells at a fraction of the cost. Furthermore, they have demonstrated the statistical significance required for understanding the role of cell heterogeneity in diverse biological applications, ranging from cancer screening to drug candidate identification/validation processes. This work examines the efficacies and opportunities presented by machine learning algorithms in processing largescale datasets with millions of label-free cell images. An automatic single-cell classification framework using a convolutional neural network (CNN) has been developed. A comparative analysis of its efficiency in classifying large datasets against conventional k-nearest neighbors (kNN) and support vector machine (SVM) based methods is also presented. Experiments have shown that (i) our proposed framework can identify multiple types of cells with over 99% accuracy based on label-free bright-field images efficiently; (ii) CNN-based models perform well and relatively stable against changes in data volume compared with kNN and SVM.
         </p>
       </abstract>
@@ -49,9 +51,16 @@
       </figure>
     </section>
 
+    <section class="container">
+      <h5 style="font-family: Markazi Text, serif; font-size: 30px"> 
+        <strong> Data </strong>
+      </h5>
+      <figure id="barplot_cell_samples"></figure>
+    </section>
+
 		<section class="container">
       <h5 style="font-family: Markazi Text, serif; font-size: 30px"> 
-        <strong>Downloads </strong>
+        <strong> Downloads </strong>
       </h5>
       <div class="row" style="padding-left: 36px">
         <!-- The manuscript link -->
@@ -79,6 +88,191 @@
         </p>
       </div>
     </section>
+
+    
+
+
+
+
+    <script>
+      // set the margin of the SVG
+      var margin = {top: 50, right: 50, bottom: 50, left: 100};
+
+      // set the width and height using the current width and height of the div
+      var width = 560 - margin.left - margin.right;
+      var height = 360 - margin.top - margin.bottom;
+
+      var figure = d3.select("#barplot_cell_samples").append("svg")
+                     .attr("width", width + margin.left + margin.right)
+                     .attr("height", height + margin.top + margin.bottom)
+                     .append("g")
+                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      // define the x and y axes
+      var y = d3.scaleLinear()
+                .range([height, 0])
+                .domain([0,450000]);
+      var x = d3.scaleBand()
+                .range([0, width])
+                .domain(["THP1", "MCF7", "MB231", "PBMC"])
+                .padding(0.36);
+
+      // plot the x and y coordinates
+      figure.append("g").call(d3.axisLeft(y));
+      figure.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
+
+
+      var data = [
+        {preaugment: 200951, afteraugment: 256000, type: "THP1"},
+        {preaugment: 372000, afteraugment: 374427, type: "MCF7"},
+        {preaugment: 350000, afteraugment: 353394, type: "MB231"},
+        {preaugment: 21000,  afteraugment: 327198, type: "PBMC"}
+      ];
+
+      var colors = ["#ff9999", "#9999ff"];
+
+
+      // add dash line grid
+      figure.append("g")
+            .attr("class", "grid")
+            .style("stroke-dasharray", "3 3")
+            .style("opacity", "0.36")
+            // .attr("transform", "translate(0, ${height})")
+            .call(d3.axisLeft()
+                    .scale(y)
+                    .tickSize(-width, 0, 0)
+                    .tickFormat("")
+                 )
+
+      // define the bar group
+      // const bargroup = figure.selectAll()
+      //                        .
+
+      // add preaugment bars
+      figure.selectAll()
+            .data(data)      
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .style("fill", colors[0])
+            .style("stroke", colors[0])
+            .attr("x", function(d) { return x(d.type); })
+            .attr("width", x.bandwidth() / 2.03)
+            .attr("y", function(d) { return y(d.preaugment); })
+            .attr("height", function(d) {return height - y(d.preaugment)})
+            .on('mouseenter', function (s, i) {
+              d3.select(this)
+                .attr("opacity", 0.6)
+                .style("stroke", "red")
+
+              const yvalue = y(s.preaugment)
+              const xvalue = x(s.type)
+
+              figure.append("line")
+                    .attr("id", "limit")
+                    .attr("x1", 0)
+                    .attr("y1", yvalue)
+                    .attr("x2", width)
+                    .attr("y2", yvalue)
+                    .attr("stroke", "red")
+                    .attr("stroke-dasharray", "5 5")
+
+              figure.append("text")
+                    .attr("class", "labeltip")
+                    .attr("x", 0)
+                    .attr("y", yvalue - 5)
+                    .text(s.preaugment)
+                    .style("font-family", "Times")
+                    .style("font-weight", "bold")
+                    .style("font-style", "italic")
+                    .style("fill", "#ff7777")
+            })
+            .on('mouseleave', function (s, i) {
+              d3.select(this)
+                .attr("opacity", 1)
+                .style("stroke", colors[0])
+
+              d3.selectAll("#limit").remove()
+              d3.selectAll(".labeltip").remove()
+            });
+
+
+      // add afteraugment bars
+      figure.selectAll()
+            .data(data)      
+            .enter()
+            .append("rect")
+            .style("fill", colors[1])
+            .attr("x", function(d) { return x(d.type); })
+            .attr("width", x.bandwidth() / 2)
+            .attr("transform", "translate("+x.bandwidth() / 2+",0)")
+            .attr("y", function(d) { return y(d.afteraugment); })
+            .attr("height", function(d) {return height - y(d.afteraugment)})
+            .on('mouseenter', function (s, i) {
+              d3.select(this)
+                .attr('opacity', 0.6)
+                .style("stroke", "blue")
+
+              const yvalue = y(s.afteraugment)
+
+              figure.append("line")
+                    .attr("id", "limit")
+                    .attr("x1", 0)
+                    .attr("y1", yvalue)
+                    .attr("x2", width)
+                    .attr("y2", yvalue)
+                    .attr("stroke", "blue")
+                    .attr("stroke-dasharray", "5 5")
+
+
+              figure.append("text")
+                    .attr("class", "labeltip")
+                    .attr("x", 0)
+                    .attr("y", yvalue - 5)
+                    .text(s.afteraugment)
+                    .style("font-family", "Times")
+                    .style("font-weight", "bold")
+                    .style("font-style", "italic")
+                    .style("fill", "#7777ff")
+            })
+            .on('mouseleave', function (s, i) {
+              d3.select(this)
+                .attr('opacity', 1)
+                .style("stroke", colors[1])
+
+              d3.selectAll("#limit").remove()
+              d3.selectAll(".labeltip").remove()
+            });
+
+
+      // add text label to y coordinates
+      figure.append("text")
+            .attr("x", -(height / 2) - margin.top)
+            .attr("y", -margin.left / 1.6)
+            .attr("transform", "rotate(-90)")
+            .text("Number of cells")
+            .style("font-family", "Times")
+            .style("font-weight", "bold")
+            .style("font-size", "12pt");
+
+      // add text label to x coordinates
+      figure.append("text")
+            .attr("x", (width - margin.left) / 2)
+            .attr("y", height + margin.top / 1.2)
+            .text("Cell types")
+            .style("font-family", "Times")
+            .style("font-weight", "bold")
+            .style("font-size", "12pt");
+
+      // draw legend
+      var legend = figure.selectAll(".legend")
+                         .data(colors)
+
+
+      //  ====================================== visualization of cells ====================================== //
+
+
+    </script>
 
     <section class="container">
       <h5 style="font-family: Markazi Text, serif; font-size: 30px">
