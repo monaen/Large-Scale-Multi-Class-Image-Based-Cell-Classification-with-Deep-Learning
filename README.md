@@ -26,13 +26,26 @@ This cell images dataset is collected using an ultrafast imaging system known as
 [1] Nan Meng, Edmund Lam, Tsia, Kevin Kin Man, So, Hayden Kwok-Hay, "Human somatic label-free bright-field cell images", IEEE Dataport, 2018. [Online]. Available: http://dx.doi.org/10.21227/H2QW97. Accessed: Mar. 13, 2019.
 
 * Bibtex
-  - Data
+
+Data
 ```
 @data{h2qw97-18,
-doi = {10.21227/H2QW97},
-url = {http://dx.doi.org/10.21227/H2QW97},
-author = {Nan Meng; Edmund Lam; Tsia; Kevin Kin Man; So; Hayden Kwok-Hay },
-publisher = {IEEE Dataport},
-title = {Human somatic label-free bright-field cell images},
-year = {2018} }
+  doi = {10.21227/H2QW97},
+  url = {http://dx.doi.org/10.21227/H2QW97},
+  author = {Nan Meng; Edmund Lam; Tsia; Kevin Kin Man; So; Hayden Kwok-Hay },
+  publisher = {IEEE Dataport},
+  title = {Human somatic label-free bright-field cell images},
+  year = {2018}
+}
+```
+
+Paper
+```
+@article{Meng2018Largescale,
+  title = {Large-scale Multi-class Image-based Cell Classification with Deep Learning},
+  author = {Meng, Nan and Lam, Edmund and Tsia, Kevin Kin Man and So, Hayden Kwok-Hay},
+  journal = {IEEE journal of biomedical and health informatics},
+  year = {2018},
+  publisher = {IEEE}
+}
 ```
