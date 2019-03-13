@@ -155,7 +155,103 @@ def maxpooling(x, poolsize=2, stride=2, verbose=False):
                          padding="SAME")
     return out
 
-def batchnorm(x, is_training, decay=0.99, epsilon=0.001, trainable=True):
+
+# ===================================================================== #
+# ========================= BatchNorm Functions ======================= #
+# ===================================================================== #
+
+def batchnorm(x, is_training, decay=0.99, epsilon=0.001, trainable=True, verbose=False):
+    '''
+    Batch Normalization layer
+
+    :param x:
+    :param is_training:
+    :param decay:
+    :param epsilon:
+    :param trainable:
+    :return:
+    '''
     def bn_train():
         batch_mean, batch_var = tf.nn.moments(x, axes=[0, 1, 2])
-        train_mean = tf.assign(pop_mean, pop_mean * decay + )
+        train_mean = tf.assign(pop_mean, pop_mean * decay + batch_mean * (1 - decay))
+        train_var = tf.assign(pop_var, pop_var * decay + batch_var * (1 - decay))
+
+        with tf.control_dependencies([train_mean, train_var]):
+            return tf.nn.batch_normalization(x, batch_mean, batch_var, beta, scale, epsilon)
+
+    def bn_inference():
+        return tf.nn.batch_normalization(x, pop_mean, pop_var, beta, scale, epsilon)
+
+    dim = x.get_shape().as_list()[-1]
+    beta = tf.get_variable(
+        name='beta',
+        shape=[dim],
+        dtype=tf.float32,
+        initializer=tf.truncated_normal_initializer(stddev=0.0),
+        trainable=trainable)
+    scale = tf.get_variable(
+        name='scale',
+        shape=[dim],
+        dtype=tf.float32,
+        initializer=tf.truncated_normal_initializer(stddev=0.1),
+        trainable=trainable)
+    pop_mean = tf.get_variable(
+        name='pop_mean',
+        shape=[dim],
+        dtype=tf.float32,
+        initializer=tf.constant_initializer(0.0),
+        trainable=False)
+    pop_var = tf.get_variable(
+        name='pop_var',
+        shape=[dim],
+        dtype=tf.float32,
+        initializer=tf.constant_initializer(1.0),
+        trainable=False)
+    return tf.cond(is_training, bn_train, bn_inference)
+
+
+# ===================================================================== #
+# ===================== Fully-connected Functions ===================== #
+# ===================================================================== #
+
+def flatten(x, verbose=False):
+    '''
+    Flatten operation
+
+    :param x:
+    :param verbose:
+    :return:
+    '''
+    input_shape = tf.shape(x)
+    dim = input_shape[1] * input_shape[2] * input_shape[3]
+    transposed = tf.transpose(x, (0, 3, 1, 2))
+
+    return tf.reshape(transposed, [-1, dim])
+
+
+def fullyconnected(x, num_out, trainable=True, verbose=False):
+    '''
+    Fully-connected layer
+
+    :param x:
+    :return:
+    '''
+    num_in = tf.shape(x)[-1]
+    W = tf.get_variable(name="weight",
+                        shape=[num_in, num_out],
+                        dtype=tf.float32,
+                        initializer=tf.truncated_normal_initializer(stddev=0.1),
+                        trainable=trainable)
+    b = tf.get_variable(name="bias",
+                        shape=[num_out],
+                        dtype=tf.float32,
+                        initializer=tf.constant_initializer(0.0),
+                        trainable=trainable)
+    out = tf.add(tf.matmul(x, W), b)
+
+    return out
+
+
+
+
+
