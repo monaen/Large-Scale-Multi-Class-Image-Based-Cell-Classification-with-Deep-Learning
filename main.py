@@ -4,4 +4,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from model import *
 
+learning_rate = 0.01
+batchsize = 100
+channels = 1
+num_steps = 30000
 
+display_step = 1000
+examples_to_show = 10
