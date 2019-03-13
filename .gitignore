@@ -52,5 +52,5 @@ Mkfile.old
 dkms.conf
 
 # Data files
-./data/*.rar
+**/data
 *.rar
