@@ -27,9 +27,9 @@ figure.append("g").attr("transform", "translate(0," + height + ")").call(d3.axis
 
 var data = [
   {preaugment: 200951, afteraugment: 256000, type: "THP1"},
-  {preaugment: 372000, afteraugment: 374427, type: "MCF7"},
-  {preaugment: 350000, afteraugment: 353394, type: "MB231"},
-  {preaugment: 21000,  afteraugment: 327198, type: "PBMC"}
+  {preaugment: 374427, afteraugment: 374427, type: "MCF7"},
+  {preaugment: 353394, afteraugment: 353394, type: "MB231"},
+  {preaugment: 21223,  afteraugment: 327198, type: "PBMC"}
 ];
 
 var colors = ["#ff9999", "#9999ff"];
