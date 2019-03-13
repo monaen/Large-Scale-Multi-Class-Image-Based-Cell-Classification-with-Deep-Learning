@@ -26,6 +26,7 @@ This cell images dataset is collected using an ultrafast imaging system known as
 [1] Nan Meng, Edmund Lam, Tsia, Kevin Kin Man, So, Hayden Kwok-Hay, "Human somatic label-free bright-field cell images", IEEE Dataport, 2018. [Online]. Available: http://dx.doi.org/10.21227/H2QW97. Accessed: Mar. 13, 2019.
 
 * Bibtex
+  - Data
 ```
 @data{h2qw97-18,
 doi = {10.21227/H2QW97},
