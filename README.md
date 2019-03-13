@@ -13,6 +13,8 @@ This cell images dataset is collected using an ultrafast imaging system known as
 |    MCF7   |     4210    |     1724    |     2549    |     8483     |
 | **Total** | 43337 (50%) | 17335 (20%) | 26003 (30%) | 86675 (100%) |
 
+**Notice:** The small dataset has been divided into Train/Validation/Test sets already for user convinence, and we also provide the separate "train.txt", "val.txt", and "test.txt" files to indicate the image paths and labels. The "label.txt" file gives the mapping between the sematic cell names and their corresponding digital labels.
+
 * Dataset 2 (large)
 
 
