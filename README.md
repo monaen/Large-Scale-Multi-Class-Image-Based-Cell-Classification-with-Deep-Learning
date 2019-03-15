@@ -1,4 +1,4 @@
-## Large-scale Multi-class Image-based Cell Classification with Deep Learning (Tensorflow)
+## Large-scale Multi-class Image-based Cell Classification with Deep Learning (Tensorflow Implementation)
 
 
 
