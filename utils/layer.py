@@ -46,10 +46,8 @@ def conv2d(x, in_channels, out_channels, kernel_size=3, stride=1, padding="SAME"
                        padding=padding)
 
     if verbose:
-        print("|----------------------- Conv2D ----------------------")
-        print("|--- filter size: [] ------ feature size: []")
-        print(weight.get_shape())
-        print(out.get_shape())
+        print("|--------------------------------------- Conv2D ----------------------------------------|")
+        print("| feature size: {}\t\tfilter size: {}".format(out.get_shape(), weight.get_shape()))
 
     return out
 
@@ -67,8 +65,11 @@ def relu(x, verbose=False):
     '''
     out = tf.nn.relu(x)
 
-    return out
+    if verbose:
+        print("|---------------------------------------- ReLU -----------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
 
+    return out
 
 def elu(x, verbose=False):
     '''
@@ -78,6 +79,10 @@ def elu(x, verbose=False):
     :return:
     '''
     out = tf.nn.elu(x)
+
+    if verbose:
+        print("|---------------------------------------- ELU ------------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
 
     return out
 
@@ -92,6 +97,10 @@ def lrelu(x, trainable=None, verbose=False):
     alpha = 0.2
     out = tf.maximum(alpha * x, x)
 
+    if verbose:
+        print("|---------------------------------------- LReLU ----------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
+
     return out
 
 def leakyrelu(x, leak=0.2, verbose=False):
@@ -105,6 +114,10 @@ def leakyrelu(x, leak=0.2, verbose=False):
     t1 = 0.5 * (1 + leak)
     t2 = 0.5 * (1 - leak)
     out = t1 * x + t2 * tf.abs(x)
+
+    if verbose:
+        print("|-------------------------------------- LeakyReLU --------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
 
     return out
 
@@ -122,6 +135,10 @@ def prelu(x, trainable=True, verbose=False):
                             trainable=trainable)
     out = tf.maximum(0.0, x) + alpha * tf.minimum(0.0, x)
 
+    if verbose:
+        print("|---------------------------------------- PRELU ----------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
+
     return out
 
 def sigmoid(x, verbose=False):
@@ -132,6 +149,10 @@ def sigmoid(x, verbose=False):
     :return:
     '''
     out = tf.nn.sigmoid(x)
+
+    if verbose:
+        print("|--------------------------------------- Sigmoid ---------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
 
     return out
 
@@ -153,6 +174,11 @@ def maxpooling(x, poolsize=2, stride=2, padding="SAME", verbose=False):
                          ksize=[1, poolsize, poolsize, 1],
                          strides=[1, stride, stride, 1],
                          padding=padding)
+
+    if verbose:
+        print("|------------------------------------- MaxPooling --------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
+
     return out
 
 
@@ -177,10 +203,22 @@ def batchnorm(x, is_training, decay=0.99, epsilon=0.001, trainable=True, verbose
         train_var = tf.assign(pop_var, pop_var * decay + batch_var * (1 - decay))
 
         with tf.control_dependencies([train_mean, train_var]):
-            return tf.nn.batch_normalization(x, batch_mean, batch_var, beta, scale, epsilon)
+            out = tf.nn.batch_normalization(x, batch_mean, batch_var, beta, scale, epsilon)
+
+            if verbose:
+                print("|-------------------------------------- BatchNorm --------------------------------------|")
+                print("| feature size: {}".format(out.get_shape()))
+
+            return out
 
     def bn_inference():
-        return tf.nn.batch_normalization(x, pop_mean, pop_var, beta, scale, epsilon)
+        out = tf.nn.batch_normalization(x, pop_mean, pop_var, beta, scale, epsilon)
+
+        if verbose:
+            print("|-------------------------------------- BatchNorm --------------------------------------|")
+            print("| feature size: {}".format(out.get_shape()))
+
+        return out
 
     dim = x.get_shape().as_list()[-1]
     beta = tf.get_variable(
@@ -222,7 +260,7 @@ def flatten(x, verbose=False):
     :param verbose:
     :return:
     '''
-    input_shape = tf.shape(x)
+    input_shape = x.get_shape()
     dim = input_shape[1] * input_shape[2] * input_shape[3]
     transposed = tf.transpose(x, (0, 3, 1, 2))
 
@@ -236,7 +274,7 @@ def fullyconnected(x, num_out, trainable=True, verbose=False):
     :param x:
     :return:
     '''
-    num_in = tf.shape(x)[-1]
+    num_in = x.get_shape()[-1]
     W = tf.get_variable(name="weight",
                         shape=[num_in, num_out],
                         dtype=tf.float32,
@@ -248,6 +286,10 @@ def fullyconnected(x, num_out, trainable=True, verbose=False):
                         initializer=tf.constant_initializer(0.0),
                         trainable=trainable)
     out = tf.add(tf.matmul(x, W), b)
+
+    if verbose:
+        print("|------------------------------------ Fullyconnect -------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
 
     return out
 

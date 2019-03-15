@@ -6,6 +6,7 @@ import glob
 
 # sys.path.append('utils')
 from utils.layer import *
+from utils.utils import *
 
 import matplotlib.pyplot as plt
 
@@ -14,10 +15,11 @@ class Data(object):
 
     def __init__(self, path=""):
         self.path = path
-        self.train = ""
-        self.test = ""
-        self.valid = ""
-        self.labels = {}
+        self.traindata = None
+        self.testdata = None
+        self.validdata = None
+        self.dic_labels = {}
+        self.num_labels = None
         self.prepare()
 
     def prepare(self):
@@ -27,14 +29,16 @@ class Data(object):
         labels_path = glob.glob(os.path.join(self.path, "labels.txt"))[0]
         labels = np.loadtxt(labels_path, delimiter=" ", dtype=str)
         for i in range(len(labels)):
-            self.labels.update({labels[i, 0]: int(labels[i, 1])})
+            self.dic_labels.update({labels[i, 0]: int(labels[i, 1])})
 
-        self.train = self.read(self.train_path)
-        self.test = self.read(self.test_path)
-        self.valid = self.read(self.valid_path)
+        self.num_labels = len(labels)
+        self.traindata = self.read(self.train_path)
+        self.testdata = self.read(self.test_path)
+        self.validdata = self.read(self.valid_path)
 
     def read(self, path):
         info = np.loadtxt(path, dtype=str, delimiter=" ")
+        np.random.shuffle(info)
         data = {}
         data.update({"path": info[:, 0]})
         data.update({"label": info[:, 1].astype(np.int)})
@@ -43,37 +47,120 @@ class Data(object):
 
 class CellNet(Data):
 
-    def __init__(self, imgpath="", configs=None):
-        Data.__init__(self, path=imgpath)
-        # self.model = self.build(data)
-        print(0)
+    def __init__(self, configs=None):
+        Data.__init__(self, path=configs["path"])
+        self.is_training = tf.placeholder(tf.bool, [])
+        self.lr = tf.placeholder(tf.float32, [])
+        self.configs = configs
+        self.inputs = tf.placeholder(tf.float32, [self.configs["batchSize"], self.configs["imageSize"][0],
+                                                  self.configs["imageSize"][1], self.configs["channels"]])
+        self.labels = tf.placeholder(tf.float32, [self.configs["batchSize"], self.num_labels])
 
-    def build(self, x, is_training):
+        # ======== initialization ======== #
+        os.environ["CUDA_VISIBLE_DEVICES"] = self.configs["select_gpu"]
+        self.sess = tf.InteractiveSession(config=tf.ConfigProto(allow_soft_placement=True))
+        self.global_step = tf.Variable(0, name="global_step", trainable=False)
+        self.num_epoch = self.configs["num_epoch"]
+
+        # ======== predictions and loss ======== #
+        self.predictions = self.build_model(self.inputs, self.is_training, verbose=True)
+        self.loss = self.loss(predictions=self.predictions, labels=self.labels)
+
+
+    def build_model(self, x, is_training, verbose=False):
+        print("Building the model ......")
         with tf.variable_scope("cellnet"):
-            x = conv2d(x, in_channels=1, out_channels=32, kernel_size=11, stride=2, padding="SAME")
-            x = maxpooling(x, poolsize=2, stride=2, padding="SAME")
-            x = relu(x)
-            x = batchnorm(x, is_training)
+            with tf.variable_scope("conv1"):
+                x = conv2d(x, in_channels=1, out_channels=32, kernel_size=11, stride=2, padding="SAME", verbose=verbose)
+                x = maxpooling(x, poolsize=2, stride=2, padding="SAME", verbose=verbose)
+                x = relu(x, verbose=verbose)
+                x = batchnorm(x, is_training, verbose=verbose)
 
-            x = conv2d(x, in_channels=32, out_channels=64, kernel_size=6, stride=2, padding="SAME")
-            x = maxpooling(x, poolsize=2, stride=2, padding="SAME")
-            x = relu(x)
-            x = batchnorm(x, is_training)
+            with tf.variable_scope("conv2"):
+                x = conv2d(x, in_channels=32, out_channels=64, kernel_size=6, stride=2, padding="SAME", verbose=verbose)
+                x = maxpooling(x, poolsize=2, stride=2, padding="SAME", verbose=verbose)
+                x = relu(x, verbose=verbose)
+                x = batchnorm(x, is_training, verbose=verbose)
 
-            x = conv2d(x, in_channels=64, out_channels=128, kernel_size=3, stride=1, padding="SAME")
-            x = maxpooling(x, poolsize=2, stride=2, padding="SAME")
-            x = relu(x)
-            x = batchnorm(x, is_training)
+            with tf.variable_scope("conv3"):
+                x = conv2d(x, in_channels=64, out_channels=128, kernel_size=3, stride=1, padding="SAME", verbose=verbose)
+                x = maxpooling(x, poolsize=2, stride=2, padding="SAME", verbose=verbose)
+                x = relu(x, verbose=verbose)
+                x = batchnorm(x, is_training, verbose=verbose)
 
-            x = flatten(x)
-            x = fullyconnected(x, num_out=2048)
-            x = relu(x)
-            x = fullyconnected(x, num_out=64)
+            with tf.variable_scope("fc1"):
+                x = flatten(x)
+                x = fullyconnected(x, num_out=2048, verbose=verbose)
+                x = relu(x, verbose=verbose)
+
+            with tf.variable_scope("fc2"):
+                x = fullyconnected(x, num_out=64, verbose=verbose)
+                x = relu(x, verbose=verbose)
+
+            with tf.variable_scope("fc3"):
+                x = fullyconnected(x, num_out=self.num_labels, verbose=verbose)
+                x = relu(x, verbose=verbose)
+        print("Model established.")
+        self.net_variables = tf.trainable_variables(scope="cellnet")
 
         return x
 
-    def train(self):
-        # self.build(x, is_training)
+    def loss(self, predictions, labels):
+        loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=labels, logits=predictions))
+        return loss
+
+    def loadbatch(self, data, iteration=0, state="train"):
+        imgpaths, labels = data["path"], data["label"]
+        batchsize = self.configs["batchSize"]
+        num_files = len(imgpaths)
+
+        start = iteration * batchsize % num_files
+        end = (iteration+1) * batchsize % num_files
+        if start >= end:
+            batchimgpaths = imgpaths[start:] + imgpaths[:end]
+            batchlabels = labels[start:] + labels[:end]
+        else:
+            batchimgpaths = imgpaths[start:end]
+            batchlabels = labels[start:end]
+
+        batchimgs, batch_onehots = self.loading(batchimgpaths, batchlabels, state)
+
+        return batchimgs, batch_onehots
+
+    def loading(self, paths, labels, state):
+        labels = reformat_label(labels, self.num_labels)
+        b = self.configs["batchSize"]
+        h = self.configs["imageSize"][0]
+        w = self.configs["imageSize"][1]
+        c = self.configs["channels"]
+        batchimgs = np.zeros([b, h, w, c], dtype=np.float32)
+        folder = self.configs["path"]
+        for i in range(len(paths)):
+            img = cv2.imread(os.path.join(folder, state, paths[i]), 0)
+            img = cv2.resize(img, (w, h))
+            img = img.astype(np.float32)
+            img = img / img.max()
+            if len(img.shape) == 2:
+                img = np.expand_dims(img, -1)
+            batchimgs[i] = img
+        return batchimgs, labels
+
+    def train(self, opt="adam"):
+        if opt == "adam":
+            opt = tf.train.AdamOptimizer(beta1=0.5, learning_rate=self.lr)
+
+        train_op = opt.minimize(self.loss, global_step=self.global_step)
+        init = tf.global_variables_initializer()
+        self.sess.run(init)
+
+        batchimgs, batchlabels = self.loadbatch(self.traindata, iteration=0, state="train")
+        lr = self.configs["learning_rate"]
+
+        _, loss, predictions = self.sess.run([train_op, self.loss, self.predictions], feed_dict={self.inputs: batchimgs,
+                                                                                                 self.labels: batchlabels,
+                                                                                                 self.is_training: True,
+                                                                                                 self.lr: lr})
+        print(0)
         return
 
     def test(self):
