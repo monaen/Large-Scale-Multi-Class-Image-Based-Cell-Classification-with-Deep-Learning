@@ -21,7 +21,7 @@ def initializer_conv2d(in_channels, out_channels, mapsize, stddev_factor=1.0, mo
     return tf.truncated_normal([mapsize, mapsize, in_channels, out_channels],
                                mean=0.0, stddev=stddev)
 
-def Conv2d(x, in_channels, out_channels, kernel_size=3, stride=1, padding="SAME", trainable=True, verbose=False):
+def conv2d(x, in_channels, out_channels, kernel_size=3, stride=1, padding="SAME", trainable=True, verbose=False):
     '''
     Convolutional layer
 
@@ -139,7 +139,7 @@ def sigmoid(x, verbose=False):
 # ========================= Pooling Functions ========================= #
 # ===================================================================== #
 
-def maxpooling(x, poolsize=2, stride=2, verbose=False):
+def maxpooling(x, poolsize=2, stride=2, padding="SAME", verbose=False):
     '''
     Max Pooling Layer
 
@@ -152,7 +152,7 @@ def maxpooling(x, poolsize=2, stride=2, verbose=False):
     out = tf.nn.max_pool(value=x,
                          ksize=[1, poolsize, poolsize, 1],
                          strides=[1, stride, stride, 1],
-                         padding="SAME")
+                         padding=padding)
     return out
 
 

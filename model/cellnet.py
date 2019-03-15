@@ -33,7 +33,6 @@ class Data(object):
         self.test = self.read(self.test_path)
         self.valid = self.read(self.valid_path)
 
-
     def read(self, path):
         info = np.loadtxt(path, dtype=str, delimiter=" ")
         data = {}
@@ -44,14 +43,37 @@ class Data(object):
 
 class CellNet(Data):
 
-    def __init__(self, imgpath=""):
+    def __init__(self, imgpath="", configs=None):
         Data.__init__(self, path=imgpath)
+        # self.model = self.build(data)
         print(0)
 
-    def build(self):
-        return
+    def build(self, x, is_training):
+        with tf.variable_scope("cellnet"):
+            x = conv2d(x, in_channels=1, out_channels=32, kernel_size=11, stride=2, padding="SAME")
+            x = maxpooling(x, poolsize=2, stride=2, padding="SAME")
+            x = relu(x)
+            x = batchnorm(x, is_training)
+
+            x = conv2d(x, in_channels=32, out_channels=64, kernel_size=6, stride=2, padding="SAME")
+            x = maxpooling(x, poolsize=2, stride=2, padding="SAME")
+            x = relu(x)
+            x = batchnorm(x, is_training)
+
+            x = conv2d(x, in_channels=64, out_channels=128, kernel_size=3, stride=1, padding="SAME")
+            x = maxpooling(x, poolsize=2, stride=2, padding="SAME")
+            x = relu(x)
+            x = batchnorm(x, is_training)
+
+            x = flatten(x)
+            x = fullyconnected(x, num_out=2048)
+            x = relu(x)
+            x = fullyconnected(x, num_out=64)
+
+        return x
 
     def train(self):
+        # self.build(x, is_training)
         return
 
     def test(self):
