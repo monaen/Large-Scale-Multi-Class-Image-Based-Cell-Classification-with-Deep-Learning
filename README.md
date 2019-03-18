@@ -28,6 +28,20 @@ This cell images dataset is collected using an ultrafast imaging system known as
 
 **Download:** large.part01.rar -> large.part16.rar
 
+* Dataset 3 (augmented)
+
+|           |    Train     |  Validation |     Test    |               |
+|:---------:|:------------:|:-----------:|:-----------:|:-------------:|
+|    THP1   |    166474    |    38450    |    51076    |     256000    |
+|    PBMC   |    208819    |    48054    |    64127    |     321000    |
+|    MCF7   |    245767    |    56623    |    75610    |     378000   |
+|    MB231  |    227190    |    52623    |    70187    |     350000   |
+| **Total** | 848250 (65%) | 195750 (20%)| 261000 (30%)| 86675 (100%) |
+
+**Download:** Augmented.part01.rar -> Augmented.part22.rar
+
+**Notice:** The augmented dataset has been divided into Train/Validation/Test sets already.
+
 ### Citation
 
 * IEEE
