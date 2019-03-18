@@ -23,8 +23,8 @@ This cell images dataset is collected using an ultrafast imaging system known as
 |:---------:|:--------------:|
 |    THP1   |     200951     |
 |    MCF7   |     374427     |
-|   MB231   |     353394     |
-| **Total** |     928772     |
+|   MB231   |     343394     |
+| **Total** |     918772     |
 
 **Download:** large.part01.rar -> large.part16.rar
 
