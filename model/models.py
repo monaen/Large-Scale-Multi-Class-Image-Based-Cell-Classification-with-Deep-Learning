@@ -89,7 +89,7 @@ class Data(object):
 
 class CellNet(Data):
 
-    def __init__(self, configs=None):
+    def __init__(self, configs=None, num_epoch=100):
         Data.__init__(self, path=configs["path"])
         self.is_training = tf.placeholder(tf.bool, [])
         self.lr = tf.placeholder(tf.float32, [])
@@ -103,7 +103,7 @@ class CellNet(Data):
         os.environ["CUDA_VISIBLE_DEVICES"] = self.configs["select_gpu"]
         self.sess = tf.InteractiveSession(config=tf.ConfigProto(allow_soft_placement=True))
         self.global_step = tf.Variable(0, name="global_step", trainable=False)
-        self.num_epoch = self.configs["num_epoch"]
+        self.num_epoch = num_epoch
 
         # ======== predictions and loss ======== #
         self.predictions = self.build_model(self.inputs, self.is_training, verbose=True)
@@ -190,7 +190,7 @@ class CellNet(Data):
             batchimgs[i] = img
         return batchimgs, labels
 
-    def train(self, opt="adam", save_epoch=5, test_epoch=1, continues=False):
+    def train(self, opt="adam", save_epoch=5, test_epoch=1, continues=False, model_path=""):
         if opt == "adam":
             opt = tf.train.AdamOptimizer(beta1=0.5, learning_rate=self.lr)
 
@@ -202,12 +202,12 @@ class CellNet(Data):
         init = tf.global_variables_initializer()
         self.sess.run(init)
 
+        epoch_start = 0
         if continues:
             self.saver.restore(self.sess, os.path.join(self.weights_folder, "cellnet/latest"))
+            epoch_start = self.read_state("cellnet/")
 
-
-
-        for epoch in range(self.num_epoch):
+        for epoch in range(epoch_start, self.num_epoch):
 
             # ============== Training ============== #
             for iteration in range(num_trainiter):
@@ -224,14 +224,14 @@ class CellNet(Data):
 
             # ============== Testing ============== #
             if epoch % test_epoch == 0:
-                for iteration in range(num_testiter):
-                    batchimgs, batchlabels = self.loadbatch(self.testdata, iteration=iteration, state="test")
+                for iteration in range(num_validiter):
+                    batchimgs, batchlabels = self.loadbatch(self.validdata, iteration=iteration, state="test")
                     loss, predictions = self.sess.run([self.loss, self.predictions],
                                                       feed_dict={self.inputs: batchimgs,
                                                                  self.labels: batchlabels,
                                                                  self.is_training: False})
                     acc = accuracy(predictions, batchlabels)
-                    logging.info("[Epoch {0:06d}][Iteration {1:08d}][Test]\t loss:{2:10.6f}\t accuracy: {3:.6f}".format(
+                    logging.info("[Epoch {0:06d}][Iteration {1:08d}][Valid]\t loss:{2:10.6f}\t accuracy: {3:.6f}".format(
                                                             epoch, iteration, loss, acc))
 
             # ============== Save the model =============== #

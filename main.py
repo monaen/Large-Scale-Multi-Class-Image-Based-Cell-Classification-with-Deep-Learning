@@ -7,7 +7,7 @@ from model.models import *
 learning_rate = 0.0002
 batchsize = 1000
 channels = 1
-num_epoch = 1000
+num_epoch = 100
 
 display_step = 10
 select_gpu = '3'
