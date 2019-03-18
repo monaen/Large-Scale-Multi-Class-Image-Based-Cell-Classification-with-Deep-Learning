@@ -1,3 +1,23 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# -------------------------------------------------------------------------------------------------------------------- #
+#   Description:                                                                                                       #
+#       This python script define the layers used in the "model.py" file                                               #
+#                                                                                                                      #
+#   Citation:                                                                                                          #
+#       Large-scale Multi-class Image-based Cell Classification with Deep Learning                                     #
+#       Nan Meng Edmund Y. Lam Kevin K. Tsia Hayden K.-H. So                                                           #
+#       IEEE Journal of Biomedical and Health Informatics, 2018                                                        #
+#                                                                                                                      #
+#   Contact:                                                                                                           #
+#       Nan Meng                                                                                                       #
+#       naen.mong@gmail.com                                                                                            #
+#       University of Hong Kong                                                                                        #
+# -------------------------------------------------------------------------------------------------------------------- #
+
+
+# import systematic packages
 import tensorflow as tf
 import numpy as np
 

@@ -1,15 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# ---------------------------------------------------------------------------------------------------------------------#
-#  This python script define the
-#
-
-
-
-
-
-
+# -------------------------------------------------------------------------------------------------------------------- #
+#   Description:                                                                                                       #
+#       This python script define the classification models according to the corresponding work.                       #
+#                                                                                                                      #
+#   Citation:                                                                                                          #
+#       Large-scale Multi-class Image-based Cell Classification with Deep Learning                                     #
+#       Nan Meng Edmund Y. Lam Kevin K. Tsia Hayden K.-H. So                                                           #
+#       IEEE Journal of Biomedical and Health Informatics, 2018                                                        #
+#                                                                                                                      #
+#   Contact:                                                                                                           #
+#       Nan Meng                                                                                                       #
+#       naen.mong@gmail.com                                                                                            #
+#       University of Hong Kong                                                                                        #
+# -------------------------------------------------------------------------------------------------------------------- #
 
 
 # import systematic packages
@@ -25,6 +30,8 @@ import matplotlib.pyplot as plt
 
 # import logging packages
 from tool.log_config import *
+
+# ====== logging setup ====== #
 log_config()
 tf.logging.set_verbosity(tf.logging.INFO)
 

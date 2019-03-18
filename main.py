@@ -14,7 +14,7 @@ select_gpu = '3'
 results_folder = "results"
 weights_folder = "weights"
 
-path = 'data/small'
+path = 'data/augmented'
 configs = {
     "path": "data/small",
     "batchSize": batchsize,
