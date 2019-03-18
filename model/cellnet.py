@@ -9,6 +9,9 @@ from utils.layer import *
 from utils.utils import *
 
 import matplotlib.pyplot as plt
+from tool.log_config import *
+log_config()
+tf.logging.set_verbosity(tf.logging.INFO)
 
 
 class Data(object):
@@ -20,6 +23,7 @@ class Data(object):
         self.validdata = None
         self.dic_labels = {}
         self.num_labels = None
+        self.num_samples = None
         self.prepare()
 
     def prepare(self):
@@ -33,8 +37,11 @@ class Data(object):
 
         self.num_labels = len(labels)
         self.traindata = self.read(self.train_path)
+        self.num_trainsamples = len(self.traindata["path"])
         self.testdata = self.read(self.test_path)
+        self.num_testsamples = len(self.testdata["path"])
         self.validdata = self.read(self.valid_path)
+        self.num_validsamples = len(self.validdata["path"])
 
     def read(self, path):
         info = np.loadtxt(path, dtype=str, delimiter=" ")
@@ -52,9 +59,10 @@ class CellNet(Data):
         self.is_training = tf.placeholder(tf.bool, [])
         self.lr = tf.placeholder(tf.float32, [])
         self.configs = configs
-        self.inputs = tf.placeholder(tf.float32, [self.configs["batchSize"], self.configs["imageSize"][0],
+        self.inputs = tf.placeholder(tf.float32, [None, self.configs["imageSize"][0],
                                                   self.configs["imageSize"][1], self.configs["channels"]])
-        self.labels = tf.placeholder(tf.float32, [self.configs["batchSize"], self.num_labels])
+        self.labels = tf.placeholder(tf.float32, [None, self.num_labels])
+        self.weights_folder = self.configs["weights_folder"]
 
         # ======== initialization ======== #
         os.environ["CUDA_VISIBLE_DEVICES"] = self.configs["select_gpu"]
@@ -65,6 +73,8 @@ class CellNet(Data):
         # ======== predictions and loss ======== #
         self.predictions = self.build_model(self.inputs, self.is_training, verbose=True)
         self.loss = self.loss(predictions=self.predictions, labels=self.labels)
+
+        self.saver = tf.train.Saver()
 
 
     def build_model(self, x, is_training, verbose=False):
@@ -145,26 +155,59 @@ class CellNet(Data):
             batchimgs[i] = img
         return batchimgs, labels
 
-    def train(self, opt="adam"):
+    def train(self, opt="adam", save_epoch=5, test_epoch=1):
         if opt == "adam":
             opt = tf.train.AdamOptimizer(beta1=0.5, learning_rate=self.lr)
 
         train_op = opt.minimize(self.loss, global_step=self.global_step)
+        lr = self.configs["learning_rate"]
+        num_trainiter = self.num_trainsamples / self.configs["batchSize"]
+        num_validiter = self.num_validsamples / self.configs["batchSize"]
+        num_testiter = self.num_testsamples / self.configs["batchSize"]
         init = tf.global_variables_initializer()
         self.sess.run(init)
 
-        batchimgs, batchlabels = self.loadbatch(self.traindata, iteration=0, state="train")
-        lr = self.configs["learning_rate"]
 
-        _, loss, predictions = self.sess.run([train_op, self.loss, self.predictions], feed_dict={self.inputs: batchimgs,
-                                                                                                 self.labels: batchlabels,
-                                                                                                 self.is_training: True,
-                                                                                                 self.lr: lr})
-        print(0)
+        for epoch in range(self.num_epoch):
+
+            # ============== Training ============== #
+            for iteration in range(num_trainiter):
+                batchimgs, batchlabels = self.loadbatch(self.traindata, iteration=iteration, state="train")
+
+                _, loss, predictions = self.sess.run([train_op, self.loss, self.predictions],
+                                                     feed_dict={self.inputs: batchimgs,
+                                                                self.labels: batchlabels,
+                                                                self.is_training: True,
+                                                                self.lr: lr})
+                acc = accuracy(predictions, batchlabels)
+                logging.info("[Epoch {0:06d}][Iteration {1:08d}][Train]\t loss:{2:10.6f}\t accuracy: {3:.6f}".format(
+                                                        epoch, iteration, loss, acc))
+
+            # ============== Testing ============== #
+            if epoch % test_epoch == 0:
+                for iteration in range(num_testiter):
+                    batchimgs, batchlabels = self.loadbatch(self.testdata, iteration=iteration, state="test")
+                    loss, predictions = self.sess.run([self.loss, self.predictions],
+                                                      feed_dict={self.inputs: batchimgs,
+                                                                 self.labels: batchlabels,
+                                                                 self.is_training: False})
+                    acc = accuracy(predictions, batchlabels)
+                    logging.info("[Epoch {0:06d}][Iteration {1:08d}][Test]\t loss:{2:10.6f}\t accuracy: {3:.6f}".format(
+                                                            epoch, iteration, loss, acc))
+
+            # ============== Save the model =============== #
+            if (epoch !=0) and (epoch % save_epoch) == 0:
+                fp = os.path.join(self.weights_folder, "cellnet")
+
+                save_path = self.saver.save(self.sess, os.path.join(self.weights_folder,
+                                                                    "cellnet",
+                                                                    "epoch{0:06d}".format(epoch) +
+                                                                    ".ckpt"))
+                logging.info("Model saved in file: %s" % save_path)
         return
 
-    def test(self):
-        return
+    # def test(self):
+    #     return
 
     def evaluate(self):
         return
