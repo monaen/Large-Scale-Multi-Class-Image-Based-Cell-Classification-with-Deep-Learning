@@ -5,22 +5,21 @@ import matplotlib.pyplot as plt
 from model.models import *
 
 learning_rate = 0.0002
-batchsize = 1000
+batchsize = 3000
 channels = 1
 num_epoch = 100
 
-display_step = 10
+display_step = 1
 select_gpu = '3'
 results_folder = "results"
 weights_folder = "weights"
 
-path = 'data/augmented'
+path = 'data/Augmented'
 configs = {
-    "path": "data/small",
+    "path": path,
     "batchSize": batchsize,
     "imageSize": [128, 128],
     "channels": channels,
-    "num_epoch": num_epoch,
     "display_step": display_step,
     "learning_rate": learning_rate,
     "select_gpu": select_gpu,
@@ -29,8 +28,8 @@ configs = {
 }
 
 model = CellNet(configs=configs)
-model.train()
-
+model.train(num_epoch=num_epoch)
+model.test()
 
 
 
