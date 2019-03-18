@@ -168,6 +168,7 @@ class CellNet(Data):
         self.sess.run(init)
 
         if continues:
+            self.saver.restore(self.sess, os.path.join(self.weights_folder, "cellnet/latest"))
 
 
 
