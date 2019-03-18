@@ -155,7 +155,7 @@ class CellNet(Data):
             batchimgs[i] = img
         return batchimgs, labels
 
-    def train(self, opt="adam", save_epoch=5, test_epoch=1):
+    def train(self, opt="adam", save_epoch=5, test_epoch=1, continues=False):
         if opt == "adam":
             opt = tf.train.AdamOptimizer(beta1=0.5, learning_rate=self.lr)
 
@@ -166,6 +166,9 @@ class CellNet(Data):
         num_testiter = self.num_testsamples / self.configs["batchSize"]
         init = tf.global_variables_initializer()
         self.sess.run(init)
+
+        if continues:
+
 
 
         for epoch in range(self.num_epoch):
@@ -198,12 +201,13 @@ class CellNet(Data):
             # ============== Save the model =============== #
             if (epoch !=0) and (epoch % save_epoch) == 0:
                 fp = os.path.join(self.weights_folder, "cellnet")
-
+                if not os.path.exists(fp):
+                    os.makedirs(fp)
                 save_path = self.saver.save(self.sess, os.path.join(self.weights_folder,
                                                                     "cellnet",
-                                                                    "epoch{0:06d}".format(epoch) +
-                                                                    ".ckpt"))
-                logging.info("Model saved in file: %s" % save_path)
+                                                                    "epoch{0:06d}".format(epoch) + ".ckpt"))
+                self.saver.save(self.sess, os.path.join(self.weights_folder, "cellnet", "latest.ckpt"))
+                logging.info("Model {} saved in file: {}".format("epoch{0:06d}".format(epoch) + ".ckpt", save_path))
         return
 
     # def test(self):

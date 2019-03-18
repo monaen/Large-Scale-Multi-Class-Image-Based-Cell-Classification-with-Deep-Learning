@@ -9,9 +9,8 @@ batchsize = 1000
 channels = 1
 num_epoch = 1000
 
-display_step = 1000
-examples_to_show = 10
-select_gpu = '2'
+display_step = 10
+select_gpu = '3'
 results_folder = "results"
 weights_folder = "weights"
 
