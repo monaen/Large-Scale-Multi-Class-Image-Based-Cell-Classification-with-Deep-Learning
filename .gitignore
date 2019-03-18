@@ -53,6 +53,7 @@ dkms.conf
 
 # Data files
 **/data
-**/log
+# **/log
+# **/weights
 **/.idea
 *.rar
