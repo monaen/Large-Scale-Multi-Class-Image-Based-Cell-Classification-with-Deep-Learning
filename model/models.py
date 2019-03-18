@@ -1,19 +1,43 @@
-import tensorflow as tf
-import sys
-import os
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# ---------------------------------------------------------------------------------------------------------------------#
+#  This python script define the
+#
+
+
+
+
+
+
+
+
+# import systematic packages
 import cv2
 import glob
 
-# sys.path.append('utils')
+# import utils packages (self-made)
 from utils.layer import *
 from utils.utils import *
 
+# import packages for debugging
 import matplotlib.pyplot as plt
+
+# import logging packages
 from tool.log_config import *
 log_config()
 tf.logging.set_verbosity(tf.logging.INFO)
 
 
+########################################################################################################################
+#                                                                                                                      #
+#                                                  Classes Definition                                                  #
+#                                                                                                                      #
+########################################################################################################################
+
+# ==================================================================================================================== #
+#                                                         Data                                                         #
+# ==================================================================================================================== #
 class Data(object):
 
     def __init__(self, path=""):
@@ -51,6 +75,10 @@ class Data(object):
         data.update({"label": info[:, 1].astype(np.int)})
         return data
 
+
+# ==================================================================================================================== #
+#                                                   Model: CellNet                                                     #
+# ==================================================================================================================== #
 
 class CellNet(Data):
 
