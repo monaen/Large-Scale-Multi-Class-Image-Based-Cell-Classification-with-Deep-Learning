@@ -4,7 +4,7 @@ The tensorflow project for work "Large-scale Multi-class Image-based Cell Classi
 
 ### Environment
 * Ubuntu 16.04
-* Python 3.6
+* Python 2.7
 
 ### Requirements
 * notebook==5.7.4
