@@ -53,4 +53,5 @@ Paper
 - [x] Update the proposed model -- CellNet
 - [x] Upload the small/large dataset
 - [x] Upload the augmented dataset
-- [ ] Update the Hep2 model
+- [ ] Add the Hep2 model from "HEp-2 cell image classification with deep convolutional neural networks"
+- [ ] Add the model from "Convolutional neural network for cell classification using microscope images of intracellular actin networks."
