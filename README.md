@@ -2,6 +2,9 @@
 
 The tensorflow project for work "Large-scale Multi-class Image-based Cell Classification with Deep Learning"
 
+### Project page
+[https://monaen.github.io/Meng2018Largescale](https://monaen.github.io/Meng2018Largescale)
+
 ### Code
 We provide the training and test code at: [https://github.com/monaen/Meng2018Largescale/tree/code](https://github.com/monaen/Meng2018Largescale/tree/code)
 
