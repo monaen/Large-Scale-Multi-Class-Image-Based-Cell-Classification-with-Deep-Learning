@@ -2,21 +2,8 @@
 
 The tensorflow project for work "Large-scale Multi-class Image-based Cell Classification with Deep Learning"
 
-### Environment
-* Ubuntu 16.04
-* Python 2.7
-
-### Requirements
-* notebook==5.7.4
-* numpy==1.15.4
-* Pillow==5.3.0
-* scikit-image==0.14.1
-* scikit-learn==0.20.1
-* scipy==1.1.0
-* opencv>=2.4.12
-* tensorboard>=1.4.0
-* tensorflow>=1.4.0
-* tqdm==4.28.1
+### Code
+We provide the training and test code at: [https://github.com/monaen/Meng2018Largescale/tree/code](https://github.com/monaen/Meng2018Largescale/tree/code)
 
 ### Dataset
 We provide three different datasets, and all the datasets could be downloaded at [https://github.com/monaen/Meng2018Largescale/tree/data](https://github.com/monaen/Meng2018Largescale/tree/data)
@@ -60,3 +47,6 @@ Paper
   year = {2018},
   publisher = {IEEE}
 }
+
+### TODO
+
