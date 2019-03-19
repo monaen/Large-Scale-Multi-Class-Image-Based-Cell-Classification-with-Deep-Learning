@@ -25,7 +25,6 @@ cd Meng2018Largescale/data
 ```
 
 ### Reference
-
 Data
 ```
 @data{h2qw97-18,
@@ -37,7 +36,6 @@ Data
   year = {2018}
 }
 ```
-
 Paper
 ```
 @article{Meng2018Largescale,
@@ -47,6 +45,9 @@ Paper
   year = {2018},
   publisher = {IEEE}
 }
-
+```
 ### TODO
-
+- [x] Update the proposed model -- CellNet
+- [x] Upload the small/large dataset
+- [x] Upload the augmented dataset
+- [ ] Update the Hep2 model
