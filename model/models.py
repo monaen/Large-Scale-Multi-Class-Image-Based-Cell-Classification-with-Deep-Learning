@@ -30,8 +30,6 @@ from utils.utils import *
 # import packages for debugging
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
-rcParams['font.family'] = 'sans-serif'
-rcParams['font.sans-serif'] = ['Tahoma']
 # import logging packages
 from tool.log_config import *
 
@@ -105,6 +103,7 @@ class CellNet(Data):
         self.labels = tf.placeholder(tf.float32, [None, self.num_labels])
         self.weights_folder = self.configs["weights_folder"]
         self.display_step = self.configs["display_step"]
+        self.lr_step = self.configs["lr_step"]
 
         # ======== initialization ======== #
         os.environ["CUDA_VISIBLE_DEVICES"] = self.configs["select_gpu"]
@@ -199,7 +198,7 @@ class CellNet(Data):
     def adjust_learning_rate(self, lr, epoch, step=5):
         return lr * (0.1 ** (epoch // step))
 
-    def train(self, num_epoch=10, opt="adam", save_epoch=1, test_epoch=1, continues=False, model_path="latest.ckpt"):
+    def train(self, num_epoch=10, opt="adam", save_epoch=5, test_epoch=1, continues=False, model_path="latest.ckpt"):
         if opt == "adam":
             opt = tf.train.AdamOptimizer(beta1=0.5, learning_rate=self.lr)
 
@@ -222,7 +221,7 @@ class CellNet(Data):
             # ============== Training ============== #
             for iteration in range(num_trainiter):
                 batchimgs, batchlabels = self.loadbatch(self.traindata, iteration=iteration)
-                lr = self.adjust_learning_rate(lr_start, epoch, step=5)
+                lr = self.adjust_learning_rate(lr_start, epoch, step=self.lr_step)
 
                 _, loss, predictions = self.sess.run([train_op, self.loss, self.predictions],
                                                      feed_dict={self.inputs: batchimgs,
@@ -346,7 +345,6 @@ class CellNet(Data):
         fig.tight_layout()
         fig.legend(loc=1, bbox_to_anchor=(1, 0.28), bbox_transform=ax1.transAxes)
         plt.title(title)
-        plt.show()
         if not os.path.exists(self.configs["results_folder"]):
             os.makedirs(self.configs["results_folder"])
         plt.savefig(os.path.join(self.configs["results_folder"], title+'__AccurateLoss.pdf'), interpolation='nearest',
