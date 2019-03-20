@@ -4,6 +4,9 @@ Tensorflow implementation of "Large-scale Multi-class Image-based Cell Classific
 ### Project page
 [https://monaen.github.io/Meng2018Largescale](https://monaen.github.io/Meng2018Largescale)
 
+### Prerequisites
+This codebase was developed and tested with Tensorflow 1.8.0
+
 ### Environment
 * Ubuntu 16.04
 * Python 2.7
