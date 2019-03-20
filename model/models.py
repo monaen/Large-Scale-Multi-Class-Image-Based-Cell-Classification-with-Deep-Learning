@@ -161,6 +161,9 @@ class CellNet(Data):
 
     def loadbatch(self, data, iteration=0):
         imgpaths, labels = data["path"], data["label"]
+        if np.random.random() > 0.9:
+            idx = np.random.permutation(len(imgpaths))
+            imgpaths, labels = imgpaths[idx], labels[idx]
         batchsize = self.configs["batchSize"]
         num_files = len(imgpaths)
 
@@ -217,22 +220,28 @@ class CellNet(Data):
             epoch_start += 1
 
         for epoch in range(epoch_start, num_epoch):
-
-            # ============== Training ============== #
+            # -------------------------------------- #
+            #                Training                #
+            # -------------------------------------- #
             for iteration in range(num_trainiter):
+                # ================ read batch images and labels ================ #
                 batchimgs, batchlabels = self.loadbatch(self.traindata, iteration=iteration)
+                # ================ adjust the learning rate ================ #
                 lr = self.adjust_learning_rate(lr_start, epoch, step=self.lr_step)
 
+                # ================ running the model ================ #
                 _, loss, predictions = self.sess.run([train_op, self.loss, self.predictions],
                                                      feed_dict={self.inputs: batchimgs,
                                                                 self.labels: batchlabels,
                                                                 self.is_training: True,
                                                                 self.lr: lr})
                 acc = accuracy(predictions, batchlabels)
-                logging.info("[Epoch {0:06d}][Iteration {1:08d}][Train]\t loss:{2:10.6f}\t accuracy: {3:.6f}".format(
-                                                        epoch, iteration, loss, acc))
+                logging.info("[Epoch {0:06d}][Iteration {1:08d}][Train]\t learning rate: {2:10.9f}\t loss:{3:10.6f}\t "
+                             "accuracy: {4:.6f}".format(epoch, iteration, lr, loss, acc))
 
-            # ============== Testing ============== #
+            # -------------------------------------- #
+            #                 Testing                #
+            # -------------------------------------- #
             if epoch % test_epoch == 0:
                 for iteration in range(num_validiter):
                     batchimgs, batchlabels = self.loadbatch(self.validdata, iteration=iteration)
@@ -241,20 +250,21 @@ class CellNet(Data):
                                                                  self.labels: batchlabels,
                                                                  self.is_training: False})
                     acc = accuracy(predictions, batchlabels)
-                    logging.info("[Epoch {0:06d}][Iteration {1:08d}][Valid]\t loss:{2:10.6f}\t accuracy: {3:.6f}".format(
-                                                            epoch, iteration, loss, acc))
+                    logging.info("[Epoch {0:06d}][Iteration {1:08d}][Valid]\t loss:{2:10.6f}\t accuracy: "
+                                 "{3:.6f}".format(epoch, iteration, loss, acc))
 
             # ============== Save the model =============== #
+            fp = os.path.join(self.weights_folder, self.model_type)
+            if not os.path.exists(fp):
+                os.makedirs(fp)
+            self.saver.save(self.sess, os.path.join(self.weights_folder, self.model_type, "latest.ckpt"))
+            logging.info("Model {} saved in file: {}".format("epoch{0:06d}".format(epoch) + ".ckpt", save_path))
+            self.save_state(epoch, lr, acc, loss)
+
             if (epoch != 0) and (epoch % save_epoch) == 0:
-                fp = os.path.join(self.weights_folder, self.model_type)
-                if not os.path.exists(fp):
-                    os.makedirs(fp)
                 save_path = self.saver.save(self.sess, os.path.join(self.weights_folder,
                                                                     self.model_type,
                                                                     "epoch{0:06d}".format(epoch) + ".ckpt"))
-                self.saver.save(self.sess, os.path.join(self.weights_folder, self.model_type, "latest.ckpt"))
-                logging.info("Model {} saved in file: {}".format("epoch{0:06d}".format(epoch) + ".ckpt", save_path))
-                self.save_state(epoch, lr, acc, loss)
 
             if (epoch != 0) and (epoch % self.display_step) == 0:
                 trainacc, trainloss, validacc, validloss = self.read_current_acc_loss_log()

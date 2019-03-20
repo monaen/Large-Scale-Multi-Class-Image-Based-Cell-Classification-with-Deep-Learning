@@ -4,12 +4,12 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--dataset", default="data/Augmented")
-parser.add_argument("--channels", type=int, default=1)
-parser.add_argument("--batchsize", type=int, default=3000)
-parser.add_argument("--imgsize", type=int, default=128)
-parser.add_argument("--learning_rate", type=float, default=0.0002)
-parser.add_argument("--learning_rate_step", type=int, default=10)
+parser.add_argument("--dataset", default="data/Augmented", help="Path to the dataset")
+parser.add_argument("--channels", type=int, default=1, help="The number of input image channels")
+parser.add_argument("--batchsize", type=int, default=3000, help="The number of input images in each batch")
+parser.add_argument("--imgsize", type=int, default=128, help="The size of input images")
+parser.add_argument("--learning_rate", type=float, default=0.00002, help="The learning rate for training")
+parser.add_argument("--learning_rate_step", type=int, default=100)
 parser.add_argument("--num_epoch", type=int, default=100)
 parser.add_argument("--display_step", type=int, default=1)
 parser.add_argument("--save_step", type=int, default=5)
@@ -40,7 +40,7 @@ def main(args):
     model = CellNet(configs=configs)
 
     # ====== Start training ====== #
-    model.train(num_epoch=args.num_epoch, save_epoch=args.save_step)
+    model.train(num_epoch=args.num_epoch, save_epoch=args.save_step, continues=True, model_path="epoch000030.ckpt")
 
     # ====== Start testing ====== #
     model.test()
