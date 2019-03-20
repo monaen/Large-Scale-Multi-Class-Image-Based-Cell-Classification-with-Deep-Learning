@@ -71,7 +71,7 @@ def cellnet(x, num_labels, is_training, verbose=False):
             x = fullyconnected(x, num_out=64, verbose=verbose)
             x = relu(x, verbose=verbose)
 
-        with tf.variable_scope("fc3"):
+        with tf.variable_scope("softmax"):
             x = fullyconnected(x, num_out=num_labels, verbose=verbose)
             x = softmax(x, verbose=verbose)
     print("+---------------------------------------------------------------------------------------+")
