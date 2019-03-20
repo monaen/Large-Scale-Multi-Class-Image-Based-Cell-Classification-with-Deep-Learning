@@ -22,7 +22,14 @@
 # ==================================================================================================================== #
 #                                                   Model: CellNet                                                     #
 # ==================================================================================================================== #
+import re
+import cv2
+import matplotlib.pyplot as plt
+from utils.layer import *
+from utils.utils import *
 from model.data import *
+from tool.log_config import *
+
 
 class CellNet(Data):
 
@@ -293,5 +300,4 @@ class CellNet(Data):
             os.makedirs(self.configs["results_folder"])
         plt.savefig(os.path.join(self.configs["results_folder"], title+'__AccurateLoss.pdf'), interpolation='nearest',
                     transparent=True, bbox_inches='tight')
-
         return

@@ -4,7 +4,7 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--dataset", default="data/Augmented", help="Path to the dataset")
+parser.add_argument("--dataset", default="data/small", help="Path to the dataset")
 parser.add_argument("--channels", type=int, default=1, help="The number of input image channels")
 parser.add_argument("--batchsize", type=int, default=3000, help="The number of input images in each batch")
 parser.add_argument("--imgsize", type=int, default=128, help="The size of input images")

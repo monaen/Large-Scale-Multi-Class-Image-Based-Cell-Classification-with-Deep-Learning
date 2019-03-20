@@ -26,10 +26,11 @@ from numpy import genfromtxt
 # import utils packages (self-made)
 from utils.layer import *
 from utils.utils import *
+from model.data import *
 
 # import packages for debugging
 import matplotlib.pyplot as plt
-from matplotlib import rcParams
+
 # import logging packages
 from tool.log_config import *
 
@@ -43,46 +44,6 @@ tf.logging.set_verbosity(tf.logging.INFO)
 #                                                  Classes Definition                                                  #
 #                                                                                                                      #
 ########################################################################################################################
-
-# ==================================================================================================================== #
-#                                                         Data                                                         #
-# ==================================================================================================================== #
-class Data(object):
-
-    def __init__(self, path=""):
-        self.path = path
-        self.traindata = None
-        self.testdata = None
-        self.validdata = None
-        self.dic_labels = {}
-        self.num_labels = None
-        self.num_samples = None
-        self.prepare()
-
-    def prepare(self):
-        self.train_path = glob.glob(os.path.join(self.path, "Train.txt"))[0]
-        self.test_path = glob.glob(os.path.join(self.path, "Test.txt"))[0]
-        self.valid_path = glob.glob(os.path.join(self.path, "Valid.txt"))[0]
-        labels_path = glob.glob(os.path.join(self.path, "labels.txt"))[0]
-        labels = genfromtxt(labels_path, delimiter=" ", dtype=str)
-        for i in range(len(labels)):
-            self.dic_labels.update({labels[i, 0]: int(labels[i, 1])})
-
-        self.num_labels = len(labels)
-        self.traindata = self.read(self.train_path)
-        self.num_trainsamples = len(self.traindata["path"])
-        self.testdata = self.read(self.test_path)
-        self.num_testsamples = len(self.testdata["path"])
-        self.validdata = self.read(self.valid_path)
-        self.num_validsamples = len(self.validdata["path"])
-
-    def read(self, path):
-        info = genfromtxt(path, delimiter=" ", dtype=str)
-        np.random.shuffle(info)
-        data = {}
-        data.update({"path": info[:, 0]})
-        data.update({"label": info[:, 1].astype(np.int)})
-        return data
 
 
 # ==================================================================================================================== #
@@ -287,7 +248,7 @@ class CellNet(Data):
         self.saver.restore(self.sess, os.path.join(self.weights_folder, os.path.join(self.model_type, model_path)))
         if len(img.shape) == 2:
             img = np.expand_dims(img, axis=0)
-            img = np.expand_dims(img, exis=-1)
+            img = np.expand_dims(img, axis=-1)
         prediction = self.sess.run([self.predictions], feed_dict={self.inputs: img, self.is_training:False})
         return prediction
 
@@ -358,5 +319,3 @@ class CellNet(Data):
             os.makedirs(self.configs["results_folder"])
         plt.savefig(os.path.join(self.configs["results_folder"], title+'__AccurateLoss.pdf'), interpolation='nearest',
                     transparent=True, bbox_inches='tight')
-
-        return
