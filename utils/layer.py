@@ -176,6 +176,21 @@ def sigmoid(x, verbose=False):
 
     return out
 
+def tanh(x, verbose=False):
+    '''
+    Tanh activation function
+    :param x:
+    :param verbose:
+    :return:
+    '''
+    out = tf.nn.tanh(x)
+
+    if verbose:
+        print("|----------------------------------------- Tanh ----------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
+
+    return out
+
 # ===================================================================== #
 # ========================= Pooling Functions ========================= #
 # ===================================================================== #
@@ -272,12 +287,11 @@ def batchnorm(x, is_training, decay=0.99, epsilon=0.001, trainable=True, verbose
 # ===================== Fully-connected Functions ===================== #
 # ===================================================================== #
 
-def flatten(x, verbose=False):
+def flatten(x):
     '''
     Flatten operation
 
     :param x:
-    :param verbose:
     :return:
     '''
     input_shape = x.get_shape()
@@ -291,7 +305,10 @@ def fullyconnected(x, num_out, trainable=True, verbose=False):
     '''
     Fully-connected layer
 
-    :param x:
+    :param x: tensor with shape [batchsize, num_in]
+    :param num_out: tensor with shape [batchsize, num_out]
+    :param trainable: bool
+    :param verbose: bool
     :return:
     '''
     num_in = x.get_shape()[-1]
@@ -314,6 +331,22 @@ def fullyconnected(x, num_out, trainable=True, verbose=False):
     return out
 
 
+# ===================================================================== #
+# ========================= Softmax Functions ========================= #
+# ===================================================================== #
 
+def softmax(x, verbose=False):
+    '''
+    Softmax layer
 
+    :param x:
+    :param verbose:
+    :return:
+    '''
+    out = tf.nn.softmax(x)
+
+    if verbose:
+        print("|--------------------------------------- Softmax ---------------------------------------|")
+        print("| feature size: {}".format(out.get_shape()))
+    return out
 
