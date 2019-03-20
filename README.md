@@ -1,6 +1,11 @@
-## Large-scale Multi-class Image-based Cell Classification with Deep Learning (Tensorflow Implementation)
+# Large-scale Multi-class Image-based Cell Classification with Deep Learning [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+Tensorflow implementation of "Large-scale Multi-class Image-based Cell Classification with Deep Learning" by Nan M., Edmund Y. L., Tsia K. M., Hayden K-H. So. [[Project]](https://monaen.github.io/Meng2018Largescale)
 
-The tensorflow project for work "Large-scale Multi-class Image-based Cell Classification with Deep Learning"
+### Project page
+[https://monaen.github.io/Meng2018Largescale](https://monaen.github.io/Meng2018Largescale)
+
+### Prerequisites
+This codebase was developed and tested with Tensorflow 1.8.0
 
 ### Environment
 * Ubuntu 16.04
@@ -77,3 +82,12 @@ Paper
   year = {2018},
   publisher = {IEEE}
 }
+```
+
+### TODO
+- [x] Update the proposed model -- CellNet
+- [x] Upload the small/large dataset
+- [x] Upload the augmented dataset
+- [ ] Add the Hep2 model from [Gao et al.("HEp-2 cell image classification with deep convolutional neural networks")](https://ieeexplore.ieee.org/document/7400923)
+- [ ] Add the Hep2 model from [Liu et al.("HEp-2 cell classification based on a Deep Autoencoding-Classification convolutional neural network")](https://ieeexplore.ieee.org/document/7950689)
+- [ ] Add the model from [Oei et al.("Convolutional neural network for cell classification using microscope images of intracellular actin networks.")](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0213626)
