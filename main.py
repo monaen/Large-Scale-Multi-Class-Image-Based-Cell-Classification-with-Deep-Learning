@@ -1,10 +1,10 @@
 from __future__ import division, print_function, absolute_import
-from model.models import *
+from model.classifier import *
 import argparse
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--dataset", default="data/small", help="Path to the dataset")
+parser.add_argument("--dataset", default="data/Augmented", help="Path to the dataset")
 parser.add_argument("--channels", type=int, default=1, help="The number of input image channels")
 parser.add_argument("--batchsize", type=int, default=3000, help="The number of input images in each batch")
 parser.add_argument("--imgsize", type=int, default=128, help="The size of input images")
@@ -37,10 +37,10 @@ def main(args):
     }
 
     # ====== Model definition ====== #
-    model = CellNet(configs=configs)
+    model = Classifier("cellnet", configs=configs)
 
     # ====== Start training ====== #
-    model.train(num_epoch=args.num_epoch, save_epoch=args.save_step, continues=True, model_path="epoch000030.ckpt")
+    model.train(num_epoch=args.num_epoch, save_epoch=args.save_step, continues=True)
 
     # ====== Start testing ====== #
     model.test()
