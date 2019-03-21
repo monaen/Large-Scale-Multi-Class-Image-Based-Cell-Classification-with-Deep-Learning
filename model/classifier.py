@@ -19,12 +19,9 @@
 
 # import systematic packages
 import cv2
-import glob
 import re
-from numpy import genfromtxt
 
 # import utils packages (self-made)
-from utils.layer import *
 from utils.utils import *
 from model.data import *
 from model.cellnet import *
@@ -75,6 +72,15 @@ class Classifier(Data):
         self.saver = tf.train.Saver()
 
     def build_model(self, verbose):
+        '''
+        Construct the learning model for cell classification
+
+        :param verbose: bool
+                    control whether print the model framework in Terminal.
+
+        :return: predictions: tensor
+                    The prediction tensor with shape [batchsize, num_label] indicate the probability of each class.
+        '''
         if self.model_type == "cellnet":
             predictions = cellnet(self.inputs, self.num_labels, self.is_training, verbose)
 
