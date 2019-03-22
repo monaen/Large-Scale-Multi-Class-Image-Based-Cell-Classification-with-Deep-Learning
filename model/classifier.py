@@ -119,6 +119,19 @@ class Classifier(Data):
 
         return batchimgs, batch_onehots
 
+    def loadtestbatch(self, data, iteration=0):
+        imgpaths, labels = data["path"], data["label"]
+        batchsize = self.configs["batchSize"]
+
+        start = iteration * batchsize
+        end = (iteration+1) * batchsize
+        batchimgpaths = imgpaths[start:end]
+        batchlabels = labels[start:end]
+
+        batchimgs, batch_onehots = self.loading(batchimgpaths, batchlabels)
+
+        return batchimgs, batch_onehots
+
     def loading(self, paths, labels):
         labels = reformat_label(labels, self.num_labels)
         b = self.configs["batchSize"]
@@ -211,17 +224,60 @@ class Classifier(Data):
                 self.acc_loss_plot(validacc, validloss, title="Validate")
         return
 
-    def test(self):
-        num_testiter = self.num_testsamples / self.configs["batchSize"]
+    def test(self, modelpath=""):
+        if modelpath != "":
+            self.saver.restore(self.sess, modelpath)
+        self.saver.restore(self.sess, os.path.join(self.weights_folder, self.model_type, "latest.ckpt"))
+        batchsize =  self.configs["batchSize"]
+        num_testiter = self.num_testsamples / batchsize
+        Predictions = np.array([], dtype=np.float32)
+        TestLabels = np.array([], dtype=np.float32)
         for iteration in range(num_testiter):
-            batchimgs, batchlabels = self.loadbatch(self.testdata, iteration=iteration)
+            batchimgs, batchlabels = self.loadtestbatch(self.testdata, iteration=iteration)
             loss, predictions = self.sess.run([self.loss, self.predictions],
                                               feed_dict={self.inputs: batchimgs,
                                                          self.labels: batchlabels,
                                                          self.is_training: False})
             acc = accuracy(predictions, batchlabels)
-            logging.info("Testing ----- [Iteration {0:08d}][Test]\t loss:{1:10.6f}\t accuracy: {2:.6f}".format(iteration, loss, acc))
+            logging.info("Testing ----- [Iteration {0:08d}][Test]\t loss:{1:10.6f}\t "
+                         "accuracy: {2:.6f}".format(iteration, loss, acc))
+            if iteration == 0:
+                Predictions = predictions
+                TestLabels = batchlabels
+            else:
+                Predictions = np.concatenate([Predictions, predictions], axis=0)
+                TestLabels = np.concatenate([TestLabels, batchlabels], axis=0)
+        Accuracy = accuracy(Predictions, TestLabels)
+        logging.info("The overall accuracy for entire Test dataset is: {0:8.6f} %".format(Accuracy))
         return
+
+    def valid(self, modelpath=""):
+        if modelpath != "":
+            self.saver.restore(self.sess, modelpath)
+        self.saver.restore(self.sess, os.path.join(self.weights_folder, self.model_type, "latest.ckpt"))
+        batchsize = self.configs["batchSize"]
+        num_validiter = self.num_validsamples / batchsize
+        Predictions = np.array([], dtype=np.float32)
+        TestLabels = np.array([], dtype=np.float32)
+        for iteration in range(num_validiter):
+            batchimgs, batchlabels = self.loadtestbatch(self.validdata, iteration=iteration)
+            loss, predictions = self.sess.run([self.loss, self.predictions],
+                                              feed_dict={self.inputs: batchimgs,
+                                                         self.labels: batchlabels,
+                                                         self.is_training: False})
+            acc = accuracy(predictions, batchlabels)
+            logging.info("Validation ----- [Iteration {0:08d}][Valid]\t loss:{1:10.6f}\t "
+                         "accuracy: {2:.6f}".format(iteration, loss, acc))
+            if iteration == 0:
+                Predictions = predictions
+                TestLabels = batchlabels
+            else:
+                Predictions = np.concatenate([Predictions, predictions], axis=0)
+                TestLabels = np.concatenate([TestLabels, batchlabels], axis=0)
+        Accuracy = accuracy(Predictions, TestLabels)
+        logging.info("The overall accuracy for entire Validation dataset is: {0:8.6f} %".format(Accuracy))
+        return
+
 
     def evaluate(self, img, model_path):
         self.saver.restore(self.sess, os.path.join(self.weights_folder, os.path.join(self.model_type, model_path)))
