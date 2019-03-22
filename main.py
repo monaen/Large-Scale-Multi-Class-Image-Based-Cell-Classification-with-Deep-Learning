@@ -44,6 +44,7 @@ def main(args):
     model.train(num_epoch=args.num_epoch, save_epoch=args.save_step, continues=False)
 
     # ====== Start testing ====== #
+    model.valid()
     model.test()
 
 
