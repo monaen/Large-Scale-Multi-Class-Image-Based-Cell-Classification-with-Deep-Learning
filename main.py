@@ -11,7 +11,7 @@ parser.add_argument("--batchsize", type=int, default=3000, help="The number of i
 parser.add_argument("--imgsize", type=int, default=128, help="The size of input images")
 parser.add_argument("--learning_rate", type=float, default=0.00002, help="The learning rate for training")
 parser.add_argument("--learning_rate_step", type=int, default=50)
-parser.add_argument("--num_epoch", type=int, default=200)
+parser.add_argument("--num_epoch", type=int, default=100)
 parser.add_argument("--display_step", type=int, default=1)
 parser.add_argument("--save_step", type=int, default=5)
 parser.add_argument("--select_gpu", default='3')
