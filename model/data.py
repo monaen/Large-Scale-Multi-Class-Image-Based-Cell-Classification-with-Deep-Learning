@@ -37,7 +37,7 @@ class Data(object):
         self.test_path = glob.glob(os.path.join(self.path, "Test.txt"))[0]
         self.valid_path = glob.glob(os.path.join(self.path, "Valid.txt"))[0]
         labels_path = glob.glob(os.path.join(self.path, "labels.txt"))[0]
-        labels = genfromtxt(labels_path, delimiter=" ", dtype=str)
+        labels = genfromtxt(labels_path, dtype=str)
         for i in range(len(labels)):
             self.dic_labels.update({labels[i, 0]: int(labels[i, 1])})
 
