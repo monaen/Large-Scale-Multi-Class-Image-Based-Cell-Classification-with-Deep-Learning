@@ -56,7 +56,7 @@ cd Meng2018Largescale/data
 
 3. run the model
 ```commandline
-python main.py --dataset "data/Augmented" --batchsize 200 --imgsize 128
+python main.py --dataset "data/Augmented" --batchsize 2000 --imgsize 128
 ```
 
 ### Reference
