@@ -54,9 +54,14 @@ cd Meng2018Largescale/data
 ./download_augmented_Train_Test_Valid.sh
 ```
 
-3. run the model
+3. train (test) the model
 ```commandline
 python main.py --dataset "data/Augmented" --batchsize 2000 --imgsize 128
+```
+
+4. run the demo
+```commandline
+python demo.py
 ```
 
 ### Reference
@@ -88,7 +93,7 @@ Paper
 - [x] Update the proposed model -- CellNet
 - [x] Upload the small/large dataset
 - [x] Upload the augmented dataset
-- [ ] Upload the well-trained weights for CellNet
+- [x] Upload the well-trained weights for CellNet
 - [x] Add the Hep2 model from [Gao et al.("HEp-2 cell image classification with deep convolutional neural networks")](https://ieeexplore.ieee.org/document/7400923)
 - [ ] Upload the well-trained weights for Gao et al.'s model.
 - [ ] Add the Hep2 model from [Liu et al.("HEp-2 cell classification based on a Deep Autoencoding-Classification convolutional neural network")](https://ieeexplore.ieee.org/document/7950689)
