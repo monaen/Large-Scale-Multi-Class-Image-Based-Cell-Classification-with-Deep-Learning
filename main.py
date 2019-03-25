@@ -3,7 +3,7 @@
 
 # -------------------------------------------------------------------------------------------------------------------- #
 #   Description:                                                                                                       #
-#       This python script is the main file for the entire project, which start to train and test (validate)           #
+#       This python script is the main file for the entire project, which starts to train and test (validate)          #
 #       different models for multi-class cell classification.                                                          #
 #                                                                                                                      #
 #   Citation:                                                                                                          #
