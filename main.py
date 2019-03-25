@@ -41,7 +41,7 @@ def main(args):
     model = Classifier(args.model_type, configs=configs)
 
     # ====== Start training ====== #
-    model.train(num_epoch=args.num_epoch, save_epoch=args.save_step, continues=False)
+    model.train(num_epoch=args.num_epoch, save_epoch=args.save_step, continues=True)
 
     # ====== Start testing ====== #
     model.valid()

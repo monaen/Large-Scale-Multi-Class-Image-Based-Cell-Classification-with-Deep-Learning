@@ -227,7 +227,8 @@ class Classifier(Data):
     def test(self, modelpath=""):
         if modelpath != "":
             self.saver.restore(self.sess, modelpath)
-        self.saver.restore(self.sess, os.path.join(self.weights_folder, self.model_type, "latest.ckpt"))
+        else:
+            self.saver.restore(self.sess, os.path.join(self.weights_folder, self.model_type, "latest.ckpt"))
         batchsize =  self.configs["batchSize"]
         num_testiter = self.num_testsamples / batchsize
         Predictions = np.array([], dtype=np.float32)
@@ -254,7 +255,8 @@ class Classifier(Data):
     def valid(self, modelpath=""):
         if modelpath != "":
             self.saver.restore(self.sess, modelpath)
-        self.saver.restore(self.sess, os.path.join(self.weights_folder, self.model_type, "latest.ckpt"))
+        else:
+            self.saver.restore(self.sess, os.path.join(self.weights_folder, self.model_type, "latest.ckpt"))
         batchsize = self.configs["batchSize"]
         num_validiter = self.num_validsamples / batchsize
         Predictions = np.array([], dtype=np.float32)
@@ -279,7 +281,7 @@ class Classifier(Data):
         return
 
 
-    def evaluate(self, img, model_path):
+    def evaluate(self, img, model_path='latest.ckpt'):
         self.saver.restore(self.sess, os.path.join(self.weights_folder, os.path.join(self.model_type, model_path)))
         if len(img.shape) == 2:
             img = np.expand_dims(img, axis=0)

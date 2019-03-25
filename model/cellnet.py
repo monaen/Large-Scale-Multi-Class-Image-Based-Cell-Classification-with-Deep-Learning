@@ -75,7 +75,7 @@ def cellnet(x, num_labels, is_training, verbose=False):
             x = fullyconnected(x, num_out=num_labels, verbose=verbose)
             x = softmax(x, verbose=verbose)
     print("+---------------------------------------------------------------------------------------+")
-    print("|                                  Model established                                    |")
+    print("|                                   Model established                                   |")
     print("+---------------------------------------------------------------------------------------+")
     # net_variables = tf.trainable_variables(scope="cellnet")
 
