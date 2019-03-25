@@ -22,7 +22,7 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--dataset", default="data/Augmented", help="Path to the dataset")
+parser.add_argument("--dataset", default="", help="Path to the dataset")
 parser.add_argument("--model_type", default="cellnet", help="Choose the model")
 parser.add_argument("--channels", type=int, default=1, help="The number of input image channels")
 parser.add_argument("--batchsize", type=int, default=3000, help="The number of input images in each batch")

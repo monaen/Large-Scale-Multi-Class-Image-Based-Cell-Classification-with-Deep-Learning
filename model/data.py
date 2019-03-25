@@ -28,7 +28,7 @@ class Data(object):
         self.testdata = None
         self.validdata = None
         self.dic_labels = {}
-        self.num_labels = None
+        self.num_labels = 4
         self.num_samples = None
         if self.path != "":
             self.prepare()
