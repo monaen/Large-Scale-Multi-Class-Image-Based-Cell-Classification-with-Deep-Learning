@@ -30,7 +30,8 @@ class Data(object):
         self.dic_labels = {}
         self.num_labels = None
         self.num_samples = None
-        self.prepare()
+        if self.path != "":
+            self.prepare()
 
     def prepare(self):
         self.train_path = glob.glob(os.path.join(self.path, "Train.txt"))[0]

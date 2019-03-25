@@ -3,8 +3,7 @@
 
 # -------------------------------------------------------------------------------------------------------------------- #
 #   Description:                                                                                                       #
-#       This python script is the main file for the entire project, which start to train and test (validate)           #
-#       different models for multi-class cell classification.                                                          #
+#       This python script runs a demo for multi-class cell classification of CellNet.                                 #
 #                                                                                                                      #
 #   Citation:                                                                                                          #
 #       Large-scale Multi-class Image-based Cell Classification with Deep Learning                                     #
@@ -59,12 +58,35 @@ def main(args):
     # ====== Model definition ====== #
     model = Classifier(args.model_type, configs=configs)
 
-    # ====== Start training ====== #
-    model.train(num_epoch=args.num_epoch, save_epoch=args.save_step, continues=True)
+    # ====== Evaluation on validation set ====== #
+    # model.valid()
 
-    # ====== Start testing ====== #
-    model.valid()
-    model.test()
+    # ====== Evaluation on test set ====== #
+    # model.test()
+
+    # ====== Evaluation on samples ====== #
+    imgs, labels = readsamples(path='samples')
+    model.evaluate(img=imgs)
+
+
+def readsamples(path):
+    labeldic = {"THP1": 0, "MCF7": 1, "MB231": 2, "PBMC": 3}
+    imglist = glob.glob(os.path.join(path, "*.jpg"))
+    imglist.sort()
+    labels = []
+    batchimgs = np.zeros([len(imglist), 128, 128, 1], dtype=np.float32)
+    for i in range(imglist):
+        name = imglist[i].split("_")[0]
+        labels.append(labeldic[name])
+        tmpimg = cv2.imread(imglist[i], 0)
+        tmpimg = tmpimg.astype(np.float32)
+        tmpimg = (tmpimg - np.min(tmpimg)) / (np.max(tmpimg) - np.min(tmpimg))
+        batchimgs[i, :, :, 0] = tmpimg
+
+    batchlabels = reformat_label(np.array(labels))
+    print(0)
+    return batchimgs, batchlabels
+
 
 
 if __name__ == "__main__":
