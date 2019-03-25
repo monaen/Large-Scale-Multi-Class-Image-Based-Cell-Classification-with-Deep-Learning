@@ -54,9 +54,14 @@ cd Meng2018Largescale/data
 ./download_augmented_Train_Test_Valid.sh
 ```
 
-3. run the model
+3. train (test) the model
 ```commandline
 python main.py --dataset "data/Augmented" --batchsize 2000 --imgsize 128
+```
+
+4. run the demo
+```commandline
+python demo.py
 ```
 
 ### Reference
