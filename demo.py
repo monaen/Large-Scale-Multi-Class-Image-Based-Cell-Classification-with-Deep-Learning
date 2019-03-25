@@ -65,27 +65,30 @@ def main(args):
     # model.test()
 
     # ====== Evaluation on samples ====== #
-    imgs, labels = readsamples(path='samples')
-    model.evaluate(img=imgs)
-
-
-def readsamples(path):
     labeldic = {"THP1": 0, "MCF7": 1, "MB231": 2, "PBMC": 3}
-    imglist = glob.glob(os.path.join(path, "*.jpg"))
+    imglist = glob.glob('samples/*.jpg')
     imglist.sort()
+    imgs, labels = readsamples(imglist=imglist, labeldic=labeldic)
+
+    predictions = model.evaluate(img=imgs)
+    print("Classification Accuracy: {} %".format(np.sum(predictions == labels)/len(predictions)*100))
+    for i in range(len(imglist)):
+        print("Cell IMG: [{}] \t Prediction: {}".format(imglist[i], labeldic.keys()[(labeldic.values().index(predictions[i]))]))
+
+
+def readsamples(imglist, labeldic):
     labels = []
     batchimgs = np.zeros([len(imglist), 128, 128, 1], dtype=np.float32)
-    for i in range(imglist):
-        name = imglist[i].split("_")[0]
+    for i in range(len(imglist)):
+        name = imglist[i].split("/")[-1].split('_')[0]
         labels.append(labeldic[name])
         tmpimg = cv2.imread(imglist[i], 0)
         tmpimg = tmpimg.astype(np.float32)
         tmpimg = (tmpimg - np.min(tmpimg)) / (np.max(tmpimg) - np.min(tmpimg))
         batchimgs[i, :, :, 0] = tmpimg
 
-    batchlabels = reformat_label(np.array(labels))
-    print(0)
-    return batchimgs, batchlabels
+    labels = np.array(labels)
+    return batchimgs, labels
 
 
 

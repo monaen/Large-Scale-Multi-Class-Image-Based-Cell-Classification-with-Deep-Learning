@@ -286,7 +286,8 @@ class Classifier(Data):
         if len(img.shape) == 2:
             img = np.expand_dims(img, axis=0)
             img = np.expand_dims(img, axis=-1)
-        prediction = self.sess.run([self.predictions], feed_dict={self.inputs: img, self.is_training:False})
+        prediction = self.sess.run(self.predictions, feed_dict={self.inputs: img, self.is_training: False})
+        prediction = np.argmax(prediction, 1)
         return prediction
 
 
