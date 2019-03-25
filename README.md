@@ -21,9 +21,15 @@ cd Meng2018Largescale/data
 ```commandline
 ./download_large_Train_Test_Valid.sh
 ```
+
 * download the augmented data
 ```commandline
 ./download_augmented_Train_Test_Valid.sh
+```
+
+* run the demo
+```commandline
+python demo.py
 ```
 
 ### Reference
