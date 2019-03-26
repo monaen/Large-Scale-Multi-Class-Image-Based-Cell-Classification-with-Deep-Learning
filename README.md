@@ -1,4 +1,4 @@
-# Large-scale Multi-class Image-based Cell Classification with Deep Learning [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+# Large-Scale Multi-Class Image-Based Cell Classification with Deep Learning [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 Tensorflow implementation of "Large-scale Multi-class Image-based Cell Classification with Deep Learning" by Nan M., Edmund Y. L., Tsia K. M., Hayden K-H. So. [[Project]](https://monaen.github.io/Meng2018Largescale)
 
 ### Project page
