@@ -53,7 +53,7 @@ dkms.conf
 
 # Data files
 **/data
-**/log
+# **/log
 **/analysis
 #**/weights
 **/results
