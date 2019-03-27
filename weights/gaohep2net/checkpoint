@@ -1,0 +1,6 @@
+model_checkpoint_path: "latest.ckpt"
+all_model_checkpoint_paths: "epoch000080.ckpt"
+all_model_checkpoint_paths: "epoch000085.ckpt"
+all_model_checkpoint_paths: "epoch000090.ckpt"
+all_model_checkpoint_paths: "epoch000095.ckpt"
+all_model_checkpoint_paths: "latest.ckpt"
