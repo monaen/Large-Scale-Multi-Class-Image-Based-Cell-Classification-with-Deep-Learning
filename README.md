@@ -95,7 +95,7 @@ Paper
 - [x] Upload the augmented dataset
 - [x] Upload the well-trained weights for CellNet
 - [x] Add the Hep2 model from [Gao et al.("HEp-2 cell image classification with deep convolutional neural networks")](https://ieeexplore.ieee.org/document/7400923)
-- [ ] Upload the well-trained weights for Gao et al.'s model.
+- [x] Upload the well-trained weights for Gao et al.'s model.
 - [ ] Add the Hep2 model from [Liu et al.("HEp-2 cell classification based on a Deep Autoencoding-Classification convolutional neural network")](https://ieeexplore.ieee.org/document/7950689)
 - [ ] Upload the well-trained weights for Liu et al.'s model.
 - [ ] Add the model from [Oei et al.("Convolutional neural network for cell classification using microscope images of intracellular actin networks.")](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0213626)
