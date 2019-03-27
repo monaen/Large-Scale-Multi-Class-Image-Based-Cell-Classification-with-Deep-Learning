@@ -1,0 +1,5 @@
+model:cellnet
+latest epoch:99
+learning rate:2e-06
+latest mini-batch accuracy:99.4
+latest mini-batch loss:0.75023407

@@ -1,0 +1,5 @@
+model:gaohep2net
+latest epoch:99
+learning rate:2e-06
+latest mini-batch accuracy:93.3333333333
+latest mini-batch loss:0.8104224
