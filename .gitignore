@@ -56,6 +56,6 @@ dkms.conf
 # **/log
 **/analysis
 #**/weights
-**/results
+#**/results
 **/.idea
 *.rar
