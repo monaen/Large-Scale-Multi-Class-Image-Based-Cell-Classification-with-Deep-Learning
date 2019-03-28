@@ -368,6 +368,6 @@ class Classifier(Data):
         plt.title(title)
         if not os.path.exists(self.configs["results_folder"]):
             os.makedirs(self.configs["results_folder"])
-        plt.savefig(os.path.join(self.configs["results_folder"], title+'__AccurateLoss.pdf'), interpolation='nearest',
+        plt.savefig(os.path.join(self.configs["results_folder"], title+'_Accuracy&Loss.pdf'), interpolation='nearest',
                     transparent=True, bbox_inches='tight')
         plt.close("all")
