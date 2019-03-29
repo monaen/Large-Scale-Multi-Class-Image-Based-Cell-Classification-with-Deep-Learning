@@ -37,6 +37,16 @@ cd Meng2018Largescale/data
 python demo.py
 ```
 
+### Details
+The entire [code project](https://github.com/monaen/Meng2018Largescale/tree/code) contains many recent deep learning models for cell classification. We implement these models according to their papers and integrate them into our project.
+* cellnet: our work
+* gaohep2net: [Gao et al.("HEp-2 cell image classification with deep convolutional neural networks")](https://ieeexplore.ieee.org/document/7400923)
+* liuhep2net: [Liu et al.("HEp-2 cell classification based on a Deep Autoencoding-Classification convolutional neural network")](https://ieeexplore.ieee.org/document/7950689)
+* oeinet: [Oei et al.("Convolutional neural network for cell classification using microscope images of intracellular actin networks.")](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0213626)
+
+
+**If you want to use our data or code please cite our paper properly.**
+
 ### Reference
 Data
 ```
