@@ -70,7 +70,7 @@ Paper
 }
 ```
 ### TODO
-- [x] Update the proposed model -- CellNet
+-[x] Update the proposed model -- CellNet
 - [x] Upload the small/large dataset
 - [x] Upload the augmented dataset
 - [x] Upload the well-trained weights for CellNet
