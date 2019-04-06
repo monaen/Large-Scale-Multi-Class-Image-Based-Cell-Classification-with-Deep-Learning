@@ -289,9 +289,9 @@ def batchnorm(x, is_training, decay=0.99, epsilon=0.001, trainable=True, verbose
     def bn_inference():
         out = tf.nn.batch_normalization(x, pop_mean, pop_var, beta, scale, epsilon)
 
-        if verbose:
-            print("|-------------------------------------- BatchNorm --------------------------------------|")
-            print("| feature size: {0: <72}|".format(out.get_shape()))
+        # if verbose:
+        #     print("|-------------------------------------- BatchNorm --------------------------------------|")
+        #     print("| feature size: {0: <72}|".format(out.get_shape()))
 
         return out
 
