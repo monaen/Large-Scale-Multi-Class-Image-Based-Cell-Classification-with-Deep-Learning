@@ -8,7 +8,7 @@ Tensorflow implementation of "Large-scale Multi-class Image-based Cell Classific
 This codebase was developed and tested with Tensorflow 1.8.0
 
 ### Environment
-* Ubuntu 16.04
+* Ubuntu 14.04/16.04
 * Python 2.7
 
 ### Requirements
