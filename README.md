@@ -71,7 +71,7 @@ Data
 @data{h2qw97-18,
   doi = {10.21227/H2QW97},
   url = {http://dx.doi.org/10.21227/H2QW97},
-  author = {Nan Meng; Edmund Lam; Tsia; Kevin Kin Man; So; Hayden Kwok-Hay },
+  author = {Meng, Nan and Lam, Edmund and Tsia, Kevin Kin Man and So, Hayden Kwok-Hay},
   publisher = {IEEE Dataport},
   title = {Human somatic label-free bright-field cell images},
   year = {2018}
