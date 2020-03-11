@@ -2,7 +2,8 @@
 Tensorflow implementation of "Large-scale Multi-class Image-based Cell Classification with Deep Learning" by Nan M., Edmund Y. L., Tsia K. M., Hayden K-H. So. [[Paper]](https://monaen.github.io/Meng2018Largescale/materials/Largescale_Multiclass_Imagebased_Cell_Classification_with_Deep_Learning.pdf)
 
 ### Project page
-[https://monaen.github.io/Meng2018Largescale](https://monaen.github.io/Meng2018Largescale)
+[https://monaen.github.io/Meng2018Largescale](https://monaen.github.io/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
+)
 
 ### Environment
 * Ubuntu 14.04/16.04
@@ -10,10 +11,12 @@ Tensorflow implementation of "Large-scale Multi-class Image-based Cell Classific
 * Note: for Windows Users you need to download the dataset and unzip to the "data" folder.
 
 ### Code
-We provide the training and test code at: [https://github.com/monaen/Meng2018Largescale/tree/code](https://github.com/monaen/Meng2018Largescale/tree/code)
+We provide the training and test code at: [https://github.com/monaen/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
+/tree/code](https://github.com/monaen/Meng2018Largescale/tree/code)
 
 ### Dataset
-We provide three different datasets, and all the datasets could be downloaded at [https://github.com/monaen/Meng2018Largescale/tree/data](https://github.com/monaen/Meng2018Largescale/tree/data)
+We provide three different datasets, and all the datasets could be downloaded at [https://github.com/monaen/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
+/tree/data](https://github.com/monaen/Meng2018Largescale/tree/data)
 
 * download the small data
 ```commandline
