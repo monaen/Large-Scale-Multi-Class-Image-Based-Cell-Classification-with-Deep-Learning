@@ -2,7 +2,8 @@
 Tensorflow implementation of "Large-scale Multi-class Image-based Cell Classification with Deep Learning" by Nan M., Edmund Y. L., Tsia K. M., Hayden K-H. So. [[Paper]](https://monaen.github.io/Meng2018Largescale/materials/Largescale_Multiclass_Imagebased_Cell_Classification_with_Deep_Learning.pdf)
 
 ### Project page
-[https://monaen.github.io/Meng2018Largescale](https://monaen.github.io/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
+[https://monaen.github.io/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
+](https://monaen.github.io/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
 )
 
 ### Environment
