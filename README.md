@@ -1,5 +1,6 @@
 # Large-Scale Multi-Class Image-Based Cell Classification with Deep Learning [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
-Tensorflow implementation of "Large-scale Multi-class Image-based Cell Classification with Deep Learning" by Nan M., Edmund Y. L., Tsia K. M., Hayden K-H. So. [[Paper]](https://monaen.github.io/Meng2018Largescale/materials/Largescale_Multiclass_Imagebased_Cell_Classification_with_Deep_Learning.pdf)
+Tensorflow implementation of "Large-scale Multi-class Image-based Cell Classification with Deep Learning" by Nan M., Edmund Y. L., Tsia K. M., Hayden K-H. So. [[Paper]](https://monaen.github.io/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
+/materials/Largescale_Multiclass_Imagebased_Cell_Classification_with_Deep_Learning.pdf)
 
 ### Project page
 [https://monaen.github.io/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
@@ -21,7 +22,8 @@ We provide three different datasets, and all the datasets could be downloaded at
 
 * download the small data
 ```commandline
-git clone https://github.com/monaen/Meng2018Largescale.git --branch code --single-branch
+git clone https://github.com/monaen/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
+.git --branch code --single-branch
 cd Meng2018Largescale/data
 ./download_small_Train_Test_Valid.sh
 ```
@@ -42,7 +44,8 @@ python demo.py
 ```
 
 ### Details
-The entire [code project](https://github.com/monaen/Meng2018Largescale/tree/code) contains many recent deep learning models for cell classification. We implement these models according to their papers and integrate them into our project.
+The entire [code project](https://github.com/monaen/Large-Scale-Multi-Class-Image-Based-Cell-Classification-with-Deep-Learning
+/tree/code) contains many recent deep learning models for cell classification. We implement these models according to their papers and integrate them into our project.
 * cellnet: our work
 * gaohep2net: [Gao et al.("HEp-2 cell image classification with deep convolutional neural networks")](https://ieeexplore.ieee.org/document/7400923)
 * liuhep2net: [Liu et al.("HEp-2 cell classification based on a Deep Autoencoding-Classification convolutional neural network")](https://ieeexplore.ieee.org/document/7950689)
